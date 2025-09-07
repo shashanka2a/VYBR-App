@@ -2,19 +2,21 @@
 
 import { useState } from "react";
 import Head from "next/head";
-import { Home, MessageSquare, Users, Calendar } from "lucide-react";
+import { Home, MessageSquare, Users, Calendar, User } from "lucide-react";
 import { HomeTab } from "@/components/HomeTab";
 import { ChatbotTab } from "@/components/ChatbotTab";
 import { RoomiesTab } from "@/components/RoomiesTab";
 import { EventsTab } from "@/components/EventsTab";
+import { ProfileTab } from "@/components/ProfileTab";
 import { Button } from "@/components/ui/button";
 import { DesktopNavbar } from "@/components/ui/desktop-navbar";
 
 const tabs = [
   { id: "home", label: "Home", icon: Home, component: HomeTab },
-  { id: "chat", label: "AI Chat", icon: MessageSquare, component: ChatbotTab },
+  { id: "chat", label: "My Vibe AI", icon: MessageSquare, component: ChatbotTab },
   { id: "roomies", label: "Roomies", icon: Users, component: RoomiesTab },
   { id: "events", label: "Events", icon: Calendar, component: EventsTab },
+  { id: "profile", label: "Profile", icon: User, component: ProfileTab },
 ];
 
 export default function HomePage() {
@@ -45,7 +47,7 @@ export default function HomePage() {
             </div>
 
             {/* Mobile Bottom Navigation */}
-            <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-md bg-white border-t border-gray-200 px-4 py-2 z-50">
+            <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-md bg-white border-t border-gray-200 px-2 py-2 z-50">
               <div className="flex justify-around items-center">
                 {tabs.map((tab) => {
                   const Icon = tab.icon;
@@ -56,18 +58,18 @@ export default function HomePage() {
                       key={tab.id}
                       variant="ghost"
                       onClick={() => setActiveTab(tab.id)}
-                      className={`flex-col space-y-1 h-16 px-3 ${
+                      className={`flex-col space-y-1 h-16 px-1 min-w-0 flex-1 ${
                         isActive 
                           ? "text-indigo-600 bg-indigo-50" 
                           : "text-gray-500 hover:text-gray-700 hover:bg-gray-50"
                       }`}
                     >
-                      <Icon className={`w-6 h-6 ${isActive ? "text-indigo-600" : ""}`} />
-                      <span className={`text-xs ${isActive ? "font-medium" : ""}`}>
-                        {tab.label}
+                      <Icon className={`w-5 h-5 ${isActive ? "text-indigo-600" : ""}`} />
+                      <span className={`text-xs ${isActive ? "font-medium" : ""} truncate max-w-full`}>
+                        {tab.id === "chat" ? "AI" : tab.label}
                       </span>
                       {isActive && (
-                        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-8 h-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full"></div>
+                        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full"></div>
                       )}
                     </Button>
                   );

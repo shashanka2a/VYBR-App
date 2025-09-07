@@ -21,14 +21,14 @@ export default function App() {
   const ActiveComponent = tabs.find(tab => tab.id === activeTab)?.component || HomeTab;
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col max-w-md mx-auto relative">
+    <div className="min-h-screen bg-gray-50 flex flex-col max-w-sm sm:max-w-md mx-auto relative">
       {/* Main Content */}
       <div className="flex-1 overflow-y-auto">
         <ActiveComponent />
       </div>
 
       {/* Bottom Navigation */}
-      <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-md bg-white border-t border-gray-200 px-2 py-2 z-50">
+      <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-sm sm:max-w-md bg-white border-t border-gray-200 px-2 py-2 z-50">
         <div className="flex justify-around items-center">
           {tabs.map((tab) => {
             const Icon = tab.icon;

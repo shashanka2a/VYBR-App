@@ -44,7 +44,8 @@ export function DesktopNavbar({ activeTab, onTabChange, className }: DesktopNavb
               const Icon = item.icon
               const isActive = activeTab === item.id || 
                 (item.id === "home" && activeTab === "home") ||
-                (item.id === "housing" && activeTab === "chat")
+                (item.id === "housing" && activeTab === "chat") ||
+                (item.id === "profile" && activeTab === "profile")
               
               return (
                 <Button
@@ -107,7 +108,8 @@ export function DesktopNavbar({ activeTab, onTabChange, className }: DesktopNavb
               const Icon = item.icon
               const isActive = activeTab === item.id || 
                 (item.id === "home" && activeTab === "home") ||
-                (item.id === "housing" && activeTab === "chat")
+                (item.id === "housing" && activeTab === "chat") ||
+                (item.id === "profile" && activeTab === "profile")
               
               return (
                 <Button
