@@ -76,9 +76,9 @@ export function ChatbotTab() {
   };
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full max-w-4xl mx-auto md:my-6 md:rounded-xl md:shadow-lg md:border md:border-gray-200 md:overflow-hidden">
       {/* Header */}
-      <div className="bg-gradient-to-r from-indigo-500 to-purple-600 p-4 text-white">
+      <div className="bg-gradient-to-r from-indigo-500 to-purple-600 p-4 md:p-6 text-white">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
@@ -109,7 +109,7 @@ export function ChatbotTab() {
       </div>
 
       {/* Messages */}
-      <div className="flex-1 p-4 space-y-4 overflow-y-auto pb-20">
+      <div className="flex-1 p-4 md:p-6 space-y-4 md:space-y-6 overflow-y-auto pb-20 md:pb-4">
         {messages.map((message) => (
           <div key={message.id} className={`flex ${message.isBot ? 'justify-start' : 'justify-end'}`}>
             <div className={`flex max-w-[85%] ${message.isBot ? 'flex-row' : 'flex-row-reverse'} items-end space-x-2`}>
@@ -156,7 +156,7 @@ export function ChatbotTab() {
       </div>
 
       {/* Input Area */}
-      <div className="p-4 bg-white border-t border-gray-200">
+      <div className="p-4 md:p-6 bg-white border-t border-gray-200">
         <div className="flex items-center space-x-2">
           <Button variant="ghost" size="sm" className="text-gray-500">
             <Paperclip className="w-5 h-5" />

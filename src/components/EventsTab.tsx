@@ -117,36 +117,36 @@ export function EventsTab() {
   };
 
   return (
-    <div className="p-4 pb-20 space-y-6">
+    <div className="p-4 md:p-6 lg:p-8 pb-20 md:pb-8 space-y-6 md:space-y-8">
       {/* Header */}
-      <div className="text-center space-y-2">
-        <h1 className="text-2xl font-bold bg-gradient-to-r from-emerald-600 to-indigo-600 bg-clip-text text-transparent">
+      <div className="text-center space-y-2 md:space-y-3 max-w-4xl mx-auto">
+        <h1 className="heading-1 bg-gradient-to-r from-emerald-600 to-indigo-600 bg-clip-text text-transparent">
           Campus Events
         </h1>
-        <p className="text-gray-600">Discover and RSVP to amazing events</p>
+        <p className="body-normal md:body-large text-gray-600">Discover and RSVP to amazing events happening around campus</p>
       </div>
 
       {/* Search and Filters */}
-      <div className="space-y-3">
+      <div className="space-y-4 md:space-y-6 max-w-4xl mx-auto">
         <div className="relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
           <Input 
             placeholder="Search events..." 
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10 h-12 bg-gray-50 border-0 rounded-xl"
+            className="pl-10 h-12 md:h-14 bg-gray-50 border-0 rounded-xl text-base"
           />
         </div>
 
-        <div className="flex items-center justify-between">
-          <div className="flex gap-2 overflow-x-auto">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div className="flex gap-2 overflow-x-auto md:overflow-visible">
             {categories.map((category) => (
               <Badge
                 key={category}
                 variant={selectedCategory === category ? "default" : "secondary"}
-                className={`whitespace-nowrap px-3 py-1 cursor-pointer ${
+                className={`whitespace-nowrap px-3 py-2 cursor-pointer transition-all duration-200 tap-feedback ${
                   selectedCategory === category 
-                    ? "bg-emerald-600 text-white" 
+                    ? "bg-emerald-600 text-white hover:bg-emerald-700" 
                     : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                 }`}
                 onClick={() => setSelectedCategory(category)}
@@ -161,7 +161,7 @@ export function EventsTab() {
               variant="outline"
               size="sm"
               onClick={() => setViewMode('list')}
-              className={viewMode === 'list' ? 'bg-emerald-50 border-emerald-200' : ''}
+              className={`tap-feedback ${viewMode === 'list' ? 'bg-emerald-50 border-emerald-200 text-emerald-700' : ''}`}
             >
               <List className="w-4 h-4" />
             </Button>
@@ -169,7 +169,7 @@ export function EventsTab() {
               variant="outline"
               size="sm"
               onClick={() => setViewMode('grid')}
-              className={viewMode === 'grid' ? 'bg-emerald-50 border-emerald-200' : ''}
+              className={`tap-feedback ${viewMode === 'grid' ? 'bg-emerald-50 border-emerald-200 text-emerald-700' : ''}`}
             >
               <Grid className="w-4 h-4" />
             </Button>
@@ -178,157 +178,161 @@ export function EventsTab() {
       </div>
 
       {/* Events List/Grid */}
-      <div className={`${viewMode === 'grid' ? 'grid grid-cols-1 gap-4' : 'space-y-4'}`}>
-        {filteredEvents.map((event) => (
-          <Card key={event.id} className={`overflow-hidden border-0 shadow-md ${
-            viewMode === 'grid' ? 'h-full' : ''
-          }`}>
-            {viewMode === 'list' ? (
-              /* List View */
-              <div className="flex">
-                <div className="w-24 h-24 flex-shrink-0">
-                  <ImageWithFallback 
-                    src={event.image}
-                    alt={event.title}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="flex-1 p-4 space-y-2">
-                  <div className="flex items-start justify-between">
-                    <div className="flex-1">
-                      <h3 className="font-semibold text-gray-800 line-clamp-1">{event.title}</h3>
-                      <p className="text-sm text-gray-600 line-clamp-2">{event.description}</p>
-                    </div>
-                    <Badge 
-                      variant="secondary" 
-                      className={`ml-2 ${event.category === 'Housing' ? 'bg-indigo-100 text-indigo-700' : 
-                        event.category === 'Social' ? 'bg-purple-100 text-purple-700' :
-                        event.category === 'Academic' ? 'bg-emerald-100 text-emerald-700' :
-                        'bg-gray-100 text-gray-700'}`}
-                    >
-                      {event.category}
-                    </Badge>
+      <div className="max-w-6xl mx-auto">
+        <div className={`${
+          viewMode === 'grid' 
+            ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6' 
+            : 'space-y-4 md:space-y-6'
+        }`}>
+          {filteredEvents.map((event) => (
+            <Card key={event.id} className={`overflow-hidden border-0 shadow-md card-hover transition-all duration-300 hover:shadow-lg ${
+              viewMode === 'grid' ? 'h-full' : ''
+            }`}>
+              {viewMode === 'list' ? (
+                <div className="flex">
+                  <div className="w-24 h-24 md:w-32 md:h-32 flex-shrink-0">
+                    <ImageWithFallback 
+                      src={event.image}
+                      alt={event.title}
+                      className="w-full h-full object-cover rounded-l-lg"
+                    />
                   </div>
-                  
-                  <div className="flex items-center justify-between text-sm text-gray-500">
-                    <div className="flex items-center space-x-4">
-                      <div className="flex items-center">
-                        <Calendar className="w-4 h-4 mr-1" />
-                        {formatDate(event.date)}
+                  <div className="flex-1 p-4 md:p-6 space-y-2 md:space-y-3">
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1">
+                        <h3 className="font-semibold text-gray-800 line-clamp-1">{event.title}</h3>
+                        <p className="text-sm text-gray-600 line-clamp-2">{event.description}</p>
                       </div>
-                      <div className="flex items-center">
-                        <Clock className="w-4 h-4 mr-1" />
-                        {event.time}
-                      </div>
-                      <div className="flex items-center">
-                        <Users className="w-4 h-4 mr-1" />
-                        {event.attendees}/{event.maxAttendees}
-                      </div>
+                      <Badge 
+                        variant="secondary" 
+                        className={`ml-2 ${event.category === 'Housing' ? 'bg-indigo-100 text-indigo-700' : 
+                          event.category === 'Social' ? 'bg-purple-100 text-purple-700' :
+                          event.category === 'Academic' ? 'bg-emerald-100 text-emerald-700' :
+                          'bg-gray-100 text-gray-700'}`}
+                      >
+                        {event.category}
+                      </Badge>
                     </div>
                     
+                    <div className="flex items-center justify-between text-sm text-gray-500">
+                      <div className="flex items-center space-x-4">
+                        <div className="flex items-center">
+                          <Calendar className="w-4 h-4 mr-1" />
+                          {formatDate(event.date)}
+                        </div>
+                        <div className="flex items-center">
+                          <Clock className="w-4 h-4 mr-1" />
+                          {event.time}
+                        </div>
+                        <div className="flex items-center">
+                          <Users className="w-4 h-4 mr-1" />
+                          {event.attendees}/{event.maxAttendees}
+                        </div>
+                      </div>
+                      
+                      <Button
+                        size="sm"
+                        onClick={() => handleRSVP(event.id)}
+                        className={`h-8 ${event.isRSVPed 
+                          ? 'bg-emerald-600 hover:bg-emerald-700' 
+                          : 'bg-gradient-to-r from-emerald-500 to-indigo-500 hover:from-emerald-600 hover:to-indigo-600'
+                        }`}
+                      >
+                        {event.isRSVPed ? (
+                          <>
+                            <Check className="w-3 h-3 mr-1" />
+                            RSVP&apos;d
+                          </>
+                        ) : (
+                          'RSVP'
+                        )}
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  <div className="relative h-48">
+                    <ImageWithFallback 
+                      src={event.image}
+                      alt={event.title}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute top-3 left-3">
+                      <Badge 
+                        variant="secondary" 
+                        className={`${event.category === 'Housing' ? 'bg-indigo-600 text-white' : 
+                          event.category === 'Social' ? 'bg-purple-600 text-white' :
+                          event.category === 'Academic' ? 'bg-emerald-600 text-white' :
+                          'bg-gray-600 text-white'} backdrop-blur-sm bg-opacity-90`}
+                      >
+                        {event.category}
+                      </Badge>
+                    </div>
+                    <div className="absolute top-3 right-3 flex space-x-2">
+                      <Button variant="ghost" size="sm" className="w-8 h-8 p-0 bg-white/20 backdrop-blur-sm hover:bg-white/30">
+                        <Heart className="w-4 h-4 text-white" />
+                      </Button>
+                      <Button variant="ghost" size="sm" className="w-8 h-8 p-0 bg-white/20 backdrop-blur-sm hover:bg-white/30">
+                        <Share className="w-4 h-4 text-white" />
+                      </Button>
+                    </div>
+                  </div>
+
+                  <div className="p-4 space-y-3">
+                    <div>
+                      <h3 className="font-semibold text-gray-800">{event.title}</h3>
+                      <p className="text-sm text-gray-600 mt-1 line-clamp-2">{event.description}</p>
+                    </div>
+
+                    <div className="space-y-2">
+                      <div className="flex items-center text-sm text-gray-500">
+                        <Calendar className="w-4 h-4 mr-2" />
+                        {formatDate(event.date)} at {event.time}
+                      </div>
+                      <div className="flex items-center text-sm text-gray-500">
+                        <MapPin className="w-4 h-4 mr-2" />
+                        {event.location}
+                      </div>
+                      <div className="flex items-center justify-between text-sm text-gray-500">
+                        <div className="flex items-center">
+                          <Users className="w-4 h-4 mr-2" />
+                          {event.attendees}/{event.maxAttendees} attending
+                        </div>
+                        <span className="font-medium text-emerald-600">{event.price}</span>
+                      </div>
+                    </div>
+
+                    <div className="flex flex-wrap gap-1">
+                      {event.tags.map((tag) => (
+                        <Badge key={tag} variant="outline" className="text-xs border-gray-300 text-gray-600">
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
+
                     <Button
-                      size="sm"
                       onClick={() => handleRSVP(event.id)}
-                      className={`h-8 ${event.isRSVPed 
+                      className={`w-full ${event.isRSVPed 
                         ? 'bg-emerald-600 hover:bg-emerald-700' 
                         : 'bg-gradient-to-r from-emerald-500 to-indigo-500 hover:from-emerald-600 hover:to-indigo-600'
                       }`}
                     >
                       {event.isRSVPed ? (
                         <>
-                          <Check className="w-3 h-3 mr-1" />
+                          <Check className="w-4 h-4 mr-2" />
                           RSVP&apos;d
                         </>
                       ) : (
-                        'RSVP'
+                        'RSVP Now'
                       )}
                     </Button>
                   </div>
                 </div>
-              </div>
-            ) : (
-              /* Grid View */
-              <div className="space-y-4">
-                <div className="relative h-48">
-                  <ImageWithFallback 
-                    src={event.image}
-                    alt={event.title}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute top-3 left-3">
-                    <Badge 
-                      variant="secondary" 
-                      className={`${event.category === 'Housing' ? 'bg-indigo-600 text-white' : 
-                        event.category === 'Social' ? 'bg-purple-600 text-white' :
-                        event.category === 'Academic' ? 'bg-emerald-600 text-white' :
-                        'bg-gray-600 text-white'} backdrop-blur-sm bg-opacity-90`}
-                    >
-                      {event.category}
-                    </Badge>
-                  </div>
-                  <div className="absolute top-3 right-3 flex space-x-2">
-                    <Button variant="ghost" size="sm" className="w-8 h-8 p-0 bg-white/20 backdrop-blur-sm hover:bg-white/30">
-                      <Heart className="w-4 h-4 text-white" />
-                    </Button>
-                    <Button variant="ghost" size="sm" className="w-8 h-8 p-0 bg-white/20 backdrop-blur-sm hover:bg-white/30">
-                      <Share className="w-4 h-4 text-white" />
-                    </Button>
-                  </div>
-                </div>
-
-                <div className="p-4 space-y-3">
-                  <div>
-                    <h3 className="font-semibold text-gray-800">{event.title}</h3>
-                    <p className="text-sm text-gray-600 mt-1 line-clamp-2">{event.description}</p>
-                  </div>
-
-                  <div className="space-y-2">
-                    <div className="flex items-center text-sm text-gray-500">
-                      <Calendar className="w-4 h-4 mr-2" />
-                      {formatDate(event.date)} at {event.time}
-                    </div>
-                    <div className="flex items-center text-sm text-gray-500">
-                      <MapPin className="w-4 h-4 mr-2" />
-                      {event.location}
-                    </div>
-                    <div className="flex items-center justify-between text-sm text-gray-500">
-                      <div className="flex items-center">
-                        <Users className="w-4 h-4 mr-2" />
-                        {event.attendees}/{event.maxAttendees} attending
-                      </div>
-                      <span className="font-medium text-emerald-600">{event.price}</span>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-wrap gap-1">
-                    {event.tags.map((tag) => (
-                      <Badge key={tag} variant="outline" className="text-xs border-gray-300 text-gray-600">
-                        {tag}
-                      </Badge>
-                    ))}
-                  </div>
-
-                  <Button
-                    onClick={() => handleRSVP(event.id)}
-                    className={`w-full ${event.isRSVPed 
-                      ? 'bg-emerald-600 hover:bg-emerald-700' 
-                      : 'bg-gradient-to-r from-emerald-500 to-indigo-500 hover:from-emerald-600 hover:to-indigo-600'
-                    }`}
-                  >
-                    {event.isRSVPed ? (
-                      <>
-                        <Check className="w-4 h-4 mr-2" />
-                        RSVP&apos;d
-                      </>
-                    ) : (
-                      'RSVP Now'
-                    )}
-                  </Button>
-                </div>
-              </div>
-            )}
-          </Card>
-        ))}
+              )}
+            </Card>
+          ))}
+        </div>
       </div>
     </div>
   );

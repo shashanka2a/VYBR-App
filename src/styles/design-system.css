@@ -256,3 +256,62 @@
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
+
+/* Desktop-specific enhancements */
+@media (min-width: 768px) {
+  .desktop-hover:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  .desktop-card-hover:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
+  }
+  
+  /* Enhanced button hover states for desktop */
+  .desktop-button-hover:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+  }
+  
+  /* Grid hover effects */
+  .grid-item-hover:hover {
+    transform: scale(1.02);
+    z-index: 10;
+  }
+}
+
+/* Responsive typography adjustments */
+@media (min-width: 768px) {
+  .heading-1 {
+    font-size: var(--text-4xl);
+  }
+  
+  .heading-2 {
+    font-size: var(--text-3xl);
+  }
+}
+
+/* Desktop navigation styles */
+.desktop-nav-item {
+  position: relative;
+  transition: all var(--transition-fast);
+}
+
+.desktop-nav-item::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(135deg, var(--primary-500), var(--accent-purple));
+  transition: all var(--transition-fast);
+  transform: translateX(-50%);
+}
+
+.desktop-nav-item.active::after,
+.desktop-nav-item:hover::after {
+  width: 100%;
+}

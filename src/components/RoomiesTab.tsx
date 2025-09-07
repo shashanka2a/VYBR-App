@@ -90,36 +90,39 @@ export function RoomiesTab() {
   if (!currentProfile) return null;
 
   return (
-    <div className="p-4 pb-20 space-y-4">
+    <div className="p-4 md:p-6 lg:p-8 pb-20 md:pb-8 space-y-6 md:space-y-8">
       {/* Header */}
-      <div className="text-center space-y-2">
-        <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-emerald-600 bg-clip-text text-transparent">
+      <div className="text-center space-y-2 md:space-y-3 max-w-4xl mx-auto">
+        <h1 className="heading-1 bg-gradient-to-r from-purple-600 to-emerald-600 bg-clip-text text-transparent">
           Find Your Perfect Roomie
         </h1>
-        <p className="text-gray-600">Swipe to discover compatible roommates</p>
+        <p className="body-normal md:body-large text-gray-600">
+          <span className="md:hidden">Swipe to discover compatible roommates</span>
+          <span className="hidden md:inline">Discover compatible roommates based on lifestyle preferences and interests</span>
+        </p>
       </div>
 
       {/* Profile Card */}
-      <div className="relative">
-        <Card className={`overflow-hidden border-0 shadow-xl transition-transform duration-300 ${
+      <div className="relative max-w-2xl mx-auto">
+        <Card className={`overflow-hidden border-0 shadow-xl transition-transform duration-300 card-hover ${
           swipeDirection === 'left' ? '-translate-x-full opacity-0' :
           swipeDirection === 'right' ? 'translate-x-full opacity-0' : ''
         }`}>
           {/* Profile Image */}
-          <div className="relative h-64">
+          <div className="relative h-64 md:h-80 lg:h-96">
             <ImageWithFallback 
               src={currentProfile.image}
               alt={currentProfile.name}
               className="w-full h-full object-cover"
             />
-            <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1 flex items-center space-x-1">
+            <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-2 flex items-center space-x-1">
               <Star className="w-4 h-4 fill-emerald-500 text-emerald-500" />
               <span className="text-sm font-medium">{currentProfile.compatibility}% Match</span>
             </div>
           </div>
 
           {/* Profile Info */}
-          <div className="p-6 space-y-4">
+          <div className="p-6 md:p-8 space-y-4 md:space-y-6">
             <div>
               <div className="flex items-center justify-between">
                 <h2 className="text-xl font-bold">{currentProfile.name}, {currentProfile.age}</h2>
@@ -195,22 +198,22 @@ export function RoomiesTab() {
       </div>
 
       {/* Action Buttons */}
-      <div className="flex justify-center space-x-8">
+      <div className="flex justify-center space-x-8 md:space-x-12 max-w-2xl mx-auto">
         <Button
           size="lg"
           variant="outline"
           onClick={() => handleSwipe('left')}
-          className="w-16 h-16 rounded-full border-2 border-gray-300 hover:border-red-400 hover:bg-red-50 group"
+          className="w-16 h-16 md:w-20 md:h-20 rounded-full border-2 border-gray-300 hover:border-red-400 hover:bg-red-50 group tap-feedback transition-all duration-200"
         >
-          <X className="w-8 h-8 text-gray-400 group-hover:text-red-500" />
+          <X className="w-8 h-8 md:w-10 md:h-10 text-gray-400 group-hover:text-red-500" />
         </Button>
         
         <Button
           size="lg"
           onClick={() => handleSwipe('right')}
-          className="w-16 h-16 rounded-full bg-gradient-to-r from-purple-500 to-emerald-500 hover:from-purple-600 hover:to-emerald-600 group"
+          className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-r from-purple-500 to-emerald-500 hover:from-purple-600 hover:to-emerald-600 group tap-feedback transition-all duration-200"
         >
-          <Heart className="w-8 h-8 text-white" />
+          <Heart className="w-8 h-8 md:w-10 md:h-10 text-white" />
         </Button>
       </div>
 
