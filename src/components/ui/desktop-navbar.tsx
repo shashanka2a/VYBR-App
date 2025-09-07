@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { useState } from "react"
-import { Home, Building2, Users, Calendar, User, Menu, X } from "lucide-react"
+import { Home, MessageSquare, Users, Calendar, User, Menu, X } from "lucide-react"
 import { Button } from "./button"
 import { cn } from "./utils"
 
@@ -14,7 +14,7 @@ interface DesktopNavbarProps {
 
 const navItems = [
   { id: "home", label: "Home", icon: Home },
-  { id: "housing", label: "Housing", icon: Building2 },
+  { id: "housing", label: "My Vibe AI", icon: MessageSquare },
   { id: "roomies", label: "Roomies", icon: Users },
   { id: "events", label: "Events", icon: Calendar },
   { id: "profile", label: "Profile", icon: User },
