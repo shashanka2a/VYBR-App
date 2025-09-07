@@ -1,10 +1,9 @@
 import { useState } from "react";
-import { Calendar, MapPin, Users, Clock, Grid, List, Filter, Search, Heart, Share, Check } from "lucide-react";
+import { Calendar, MapPin, Users, Clock, Grid, List, Search, Heart, Share, Check } from "lucide-react";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { Input } from "./ui/input";
-import { Avatar, AvatarFallback } from "./ui/avatar";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 
 interface Event {
@@ -173,6 +172,49 @@ export function EventsTab() {
             >
               <Grid className="w-4 h-4" />
             </Button>
+          </div>
+        </div>
+      </div>
+
+      {/* Recommended Section */}
+      <div className="max-w-6xl mx-auto mb-8">
+        <div className="bg-gradient-to-r from-emerald-50 to-indigo-50 border border-emerald-200 rounded-xl p-6">
+          <div className="flex items-center space-x-2 mb-4">
+            <div className="w-8 h-8 rounded-full bg-gradient-to-r from-emerald-500 to-indigo-500 flex items-center justify-center">
+              <span className="text-white text-sm font-bold">✨</span>
+            </div>
+            <h3 className="text-lg font-semibold text-gray-800">Recommended for You</h3>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {events.slice(1, 3).map((event) => (
+              <Card key={`rec-${event.id}`} className="p-4 bg-white/80 backdrop-blur-sm border-emerald-200">
+                <div className="flex items-start space-x-3">
+                  <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0">
+                    <ImageWithFallback 
+                      src={event.image}
+                      alt={event.title}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h4 className="font-medium text-gray-800 line-clamp-1">{event.title}</h4>
+                    <p className="text-sm text-gray-600 line-clamp-1">{formatDate(event.date)} • {event.time}</p>
+                    <div className="flex items-center justify-between mt-2">
+                      <Badge variant="secondary" className="text-xs bg-emerald-100 text-emerald-700">
+                        {event.category}
+                      </Badge>
+                      <Button
+                        size="sm"
+                        onClick={() => handleRSVP(event.id)}
+                        className="h-6 px-3 text-xs bg-gradient-to-r from-emerald-500 to-indigo-500 hover:from-emerald-600 hover:to-indigo-600"
+                      >
+                        RSVP
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+            ))}
           </div>
         </div>
       </div>

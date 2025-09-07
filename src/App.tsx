@@ -8,7 +8,7 @@ import { Button } from "./components/ui/button";
 
 const tabs = [
   { id: "home", label: "Home", icon: Home, component: HomeTab },
-  { id: "chat", label: "AI Chat", icon: MessageSquare, component: ChatbotTab },
+  { id: "chat", label: "My Vibe AI", icon: MessageSquare, component: ChatbotTab },
   { id: "roomies", label: "Roomies", icon: Users, component: RoomiesTab },
   { id: "events", label: "Events", icon: Calendar, component: EventsTab },
 ];

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Heart, X, MessageCircle, Star, MapPin, GraduationCap, Music, Coffee, Gamepad2, Book, Palette, Headphones } from "lucide-react";
+import { Heart, X, MessageCircle, Star, MapPin, GraduationCap, Music, Coffee, Gamepad2, Book } from "lucide-react";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
 import { Badge } from "./ui/badge";
@@ -100,6 +100,13 @@ export function RoomiesTab() {
           <span className="md:hidden">Swipe to discover compatible roommates</span>
           <span className="hidden md:inline">Discover compatible roommates based on lifestyle preferences and interests</span>
         </p>
+        
+        {/* Compatibility Notice */}
+        <div className="bg-gradient-to-r from-purple-50 to-emerald-50 border border-purple-200 rounded-lg p-3 mt-4">
+          <p className="text-sm text-purple-800">
+            ✨ Showing matches based on your My Vibe AI assessment
+          </p>
+        </div>
       </div>
 
       {/* Profile Card */}
