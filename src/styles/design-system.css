@@ -1,0 +1,258 @@
+/* Design System Tokens */
+:root {
+  /* 8px Grid System */
+  --spacing-0: 0;
+  --spacing-1: 0.25rem; /* 4px */
+  --spacing-2: 0.5rem;  /* 8px */
+  --spacing-3: 0.75rem; /* 12px */
+  --spacing-4: 1rem;    /* 16px */
+  --spacing-5: 1.25rem; /* 20px */
+  --spacing-6: 1.5rem;  /* 24px */
+  --spacing-8: 2rem;    /* 32px */
+  --spacing-10: 2.5rem; /* 40px */
+  --spacing-12: 3rem;   /* 48px */
+  --spacing-16: 4rem;   /* 64px */
+  --spacing-20: 5rem;   /* 80px */
+  --spacing-24: 6rem;   /* 96px */
+
+  /* Typography Scale */
+  --text-xs: 0.75rem;   /* 12px */
+  --text-sm: 0.875rem;  /* 14px */
+  --text-base: 1rem;    /* 16px */
+  --text-lg: 1.125rem;  /* 18px */
+  --text-xl: 1.25rem;   /* 20px */
+  --text-2xl: 1.5rem;   /* 24px */
+  --text-3xl: 1.875rem; /* 30px */
+  --text-4xl: 2.25rem;  /* 36px */
+
+  /* Line Heights */
+  --leading-tight: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+  --leading-loose: 2;
+
+  /* Font Weights */
+  --font-light: 300;
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+
+  /* Primary Colors */
+  --primary-50: #f0f9ff;
+  --primary-100: #e0f2fe;
+  --primary-500: #4f46e5;
+  --primary-600: #4338ca;
+  --primary-700: #3730a3;
+
+  /* Secondary Colors */
+  --secondary-50: #f8fafc;
+  --secondary-100: #f1f5f9;
+  --secondary-500: #64748b;
+  --secondary-600: #475569;
+  --secondary-700: #334155;
+
+  /* Accent Colors */
+  --accent-emerald: #10b981;
+  --accent-purple: #8b5cf6;
+  --accent-amber: #f59e0b;
+
+  /* Semantic Colors */
+  --success: #10b981;
+  --warning: #f59e0b;
+  --error: #ef4444;
+  --info: #3b82f6;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+  /* Border Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+  --radius-2xl: 1rem;
+  --radius-full: 9999px;
+
+  /* Transitions */
+  --transition-fast: 150ms ease-in-out;
+  --transition-normal: 250ms ease-in-out;
+  --transition-slow: 350ms ease-in-out;
+}
+
+/* Typography Styles */
+.heading-1 {
+  font-size: var(--text-3xl);
+  font-weight: var(--font-bold);
+  line-height: var(--leading-tight);
+  letter-spacing: -0.025em;
+}
+
+.heading-2 {
+  font-size: var(--text-2xl);
+  font-weight: var(--font-semibold);
+  line-height: var(--leading-tight);
+  letter-spacing: -0.025em;
+}
+
+.heading-3 {
+  font-size: var(--text-xl);
+  font-weight: var(--font-semibold);
+  line-height: var(--leading-normal);
+}
+
+.heading-4 {
+  font-size: var(--text-lg);
+  font-weight: var(--font-medium);
+  line-height: var(--leading-normal);
+}
+
+.body-large {
+  font-size: var(--text-lg);
+  font-weight: var(--font-normal);
+  line-height: var(--leading-relaxed);
+}
+
+.body-normal {
+  font-size: var(--text-base);
+  font-weight: var(--font-normal);
+  line-height: var(--leading-normal);
+}
+
+.body-small {
+  font-size: var(--text-sm);
+  font-weight: var(--font-normal);
+  line-height: var(--leading-normal);
+}
+
+.caption {
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
+  line-height: var(--leading-normal);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* Micro-interactions */
+.tap-feedback {
+  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.tap-feedback:active {
+  transform: scale(0.98);
+}
+
+.button-primary {
+  background: linear-gradient(135deg, var(--primary-500), var(--accent-purple));
+  transition: all var(--transition-fast);
+}
+
+.button-primary:hover {
+  background: linear-gradient(135deg, var(--primary-600), #7c3aed);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-lg);
+}
+
+.button-primary:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.card-hover {
+  transition: all var(--transition-normal);
+}
+
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-xl);
+}
+
+/* Swipe animations for Roomies tab */
+.swipe-card {
+  transition: transform var(--transition-normal), opacity var(--transition-normal);
+}
+
+.swipe-left {
+  transform: translateX(-100%) rotate(-10deg);
+  opacity: 0;
+}
+
+.swipe-right {
+  transform: translateX(100%) rotate(10deg);
+  opacity: 0;
+}
+
+/* Loading states */
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Pulse animation for notifications */
+.pulse-notification {
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: .5;
+  }
+}
+
+/* Bounce animation for success states */
+.bounce-success {
+  animation: bounce 1s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(-25%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: none;
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+/* Focus states for accessibility */
+.focus-ring {
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+}
+
+.focus-ring:focus-visible {
+  outline: 2px solid var(--primary-500);
+  outline-offset: 2px;
+}
+
+/* Gradient backgrounds */
+.gradient-primary {
+  background: linear-gradient(135deg, var(--primary-500), var(--accent-purple));
+}
+
+.gradient-success {
+  background: linear-gradient(135deg, var(--success), var(--accent-emerald));
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, var(--primary-600), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
