@@ -1,72 +1,221 @@
-import { Search, MapPin, Filter, Heart, Star, Users } from 'lucide-react'
+import { useState, useMemo } from 'react'
+import { Search, MapPin, Filter, Heart, Star, Users, Bus } from 'lucide-react'
 import { Input } from './ui/input'
 import { Button } from './ui/button'
 import { Card, CardContent } from './ui/card'
 import { Badge } from './ui/badge'
 import { ImageWithFallback } from './figma/ImageWithFallback'
 
+interface Community {
+  id: number
+  name: string
+  location: string
+  price: string
+  priceValue: number
+  rating: number
+  members: number
+  image: string
+  tags: string[]
+  busRoute: string
+  area: string
+}
+
 export function HomeTab() {
-  const communities = [
+  const [searchQuery, setSearchQuery] = useState("")
+  const [activeFilters, setActiveFilters] = useState<string[]>([])
+
+  const allCommunities: Community[] = [
     {
       id: 1,
-      name: "Gator Commons",
-      location: "Near UF Campus",
-      price: "$650/month",
-      rating: 4.8,
-      members: 24,
+      name: "Stoneridge Apartments",
+      location: "SW 34th Street",
+      price: "$750/month",
+      priceValue: 750,
+      rating: 4.7,
+      members: 45,
       image: "https://images.unsplash.com/photo-1662454419622-a41092ecd245?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBhcGFydG1lbnQlMjBsaXZpbmclMjByb29tfGVufDF8fHx8MTc1NzE1OTcxOXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      tags: ["Pool", "Study Room", "Shuttle"]
+      tags: ["Pool", "Gym", "Route 37", "Indian Community"],
+      busRoute: "37",
+      area: "SW Gainesville"
     },
     {
       id: 2,
-      name: "Midtown Student Living",
-      location: "Midtown Gainesville",
-      price: "$575/month",
-      rating: 4.6,
-      members: 18,
+      name: "The Quarters",
+      location: "SW 20th Avenue",
+      price: "$680/month",
+      priceValue: 680,
+      rating: 4.5,
+      members: 38,
       image: "https://images.unsplash.com/photo-1626187777040-ffb7cb2c5450?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb3dvcmtpbmclMjBzcGFjZSUyMG1vZGVybnxlbnwxfHx8fDE3NTcyMzk3NzB8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      tags: ["Gym", "Game Room", "Pet-Friendly"]
+      tags: ["Furnished", "Study Rooms", "International Students", "Route 37"],
+      busRoute: "37",
+      area: "SW Gainesville"
     },
     {
       id: 3,
-      name: "Swamp House Co-op",
-      location: "Downtown Gainesville",
-      price: "$525/month",
-      rating: 4.9,
-      members: 12,
-      image: "https://images.unsplash.com/photo-1662454419622-a41092ecd245?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBhcGFydG1lbnQlMjBsaXZpbmclMjByb29tfGVufDF8fHx8MTc1NzE1OTcxOXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      tags: ["Sustainable", "Community Garden", "Bike Storage"]
+      name: "Centric Apartments",
+      location: "SW 35th Place",
+      price: "$720/month",
+      priceValue: 720,
+      rating: 4.6,
+      members: 52,
+      image: "https://images.unsplash.com/photo-1580063665747-ab495581c9c1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb2xsZWdlJTIwZG9ybSUyMGJ1aWxkaW5nfGVufDF8fHx8MTc1NzIzOTg1MXww&ixlib=rb-4.1.0&q=80&w=1080",
+      tags: ["Modern", "Parking", "Route 37", "Grad Students"],
+      busRoute: "37",
+      area: "SW Gainesville"
     },
     {
       id: 4,
-      name: "Archer Road Apartments",
-      location: "SW Gainesville",
-      price: "$700/month",
-      rating: 4.5,
-      members: 16,
-      image: "https://images.unsplash.com/photo-1580063665747-ab495581c9c1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb2xsZWdlJTIwZG9ybSUyMGJ1aWxkaW5nfGVufDF8fHx8MTc1NzIzOTg1MXww&ixlib=rb-4.1.0&q=80&w=1080",
-      tags: ["Bus Route", "Parking", "Laundry"]
+      name: "Lexington Crossing",
+      location: "SW 35th Place",
+      price: "$695/month",
+      priceValue: 695,
+      rating: 4.4,
+      members: 41,
+      image: "https://images.unsplash.com/photo-1549630552-4cfaf858cb03?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb2xsZWdlJTIwY2FtcHVzJTIwZXZlbnQlMjBwYXJ0eXxlbnwxfHx8fDE3NTcyMzk4NTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      tags: ["Pool", "Fitness Center", "Pet-Friendly", "Route 37"],
+      busRoute: "37",
+      area: "SW Gainesville"
     },
     {
       id: 5,
-      name: "University Heights",
-      location: "Near Shands Hospital",
-      price: "$625/month",
-      rating: 4.7,
-      members: 20,
-      image: "https://images.unsplash.com/photo-1549630552-4cfaf858cb03?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb2xsZWdlJTIwY2FtcHVzJTIwZXZlbnQlMjBwYXJ0eXxlbnwxfHx8fDE3NTcyMzk4NTJ8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      tags: ["Medical Students", "Quiet", "WiFi"]
+      name: "Gainesville Place",
+      location: "SW 34th Street",
+      price: "$650/month",
+      priceValue: 650,
+      rating: 4.3,
+      members: 35,
+      image: "https://images.unsplash.com/photo-1744320911030-1ab998d994d7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkaXZlcnNlJTIwY29sbGVnZSUyMHN0dWRlbnRzJTIwZ3JvdXB8ZW58MXx8fHwxNzU3MjM5ODUyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      tags: ["Affordable", "Laundry", "Near Publix", "Route 37"],
+      busRoute: "37",
+      area: "SW Gainesville"
     },
     {
       id: 6,
-      name: "Gator Village",
-      location: "Student Ghetto",
-      price: "$550/month",
-      rating: 4.4,
-      members: 22,
-      image: "https://images.unsplash.com/photo-1744320911030-1ab998d994d7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkaXZlcnNlJTIwY29sbGVnZSUyMHN0dWRlbnRzJTIwZ3JvdXB8ZW58MXx8fHwxNzU3MjM5ODUyfDA&ixlib=rb-4.1.0&q=80&w=1080",
-      tags: ["Party-Friendly", "Walking Distance", "Affordable"]
+      name: "Campus Lodge",
+      location: "SW 13th Street",
+      price: "$780/month",
+      priceValue: 780,
+      rating: 4.8,
+      members: 29,
+      image: "https://images.unsplash.com/photo-1662454419622-a41092ecd245?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBhcGFydG1lbnQlMjBsaXZpbmclMjByb29tfGVufDF8fHx8MTc1NzE1OTcxOXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+      tags: ["Luxury", "Close to Campus", "Study Lounges", "Premium"],
+      busRoute: "12",
+      area: "Near Campus"
+    },
+    {
+      id: 7,
+      name: "Cabana Beach",
+      location: "SW 75th Street",
+      price: "$620/month",
+      priceValue: 620,
+      rating: 4.2,
+      members: 33,
+      image: "https://images.unsplash.com/photo-1626187777040-ffb7cb2c5450?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb3dvcmtpbmclMjBzcGFjZSUyMG1vZGVybnxlbnwxfHx8fDE3NTcyMzk3NzB8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+      tags: ["Beach Volleyball", "Pool", "Budget-Friendly", "Route 37"],
+      busRoute: "37",
+      area: "SW Gainesville"
+    },
+    {
+      id: 8,
+      name: "University Commons",
+      location: "SW 20th Avenue",
+      price: "$710/month",
+      priceValue: 710,
+      rating: 4.5,
+      members: 47,
+      image: "https://images.unsplash.com/photo-1580063665747-ab495581c9c1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb2xsZWdlJTIwZG9ybSUyMGJ1aWxkaW5nfGVufDF8fHx8MTc1NzIzOTg1MXww&ixlib=rb-4.1.0&q=80&w=1080",
+      tags: ["Furnished", "Utilities Included", "International Hub", "Route 37"],
+      busRoute: "37",
+      area: "SW Gainesville"
+    },
+    {
+      id: 9,
+      name: "Polos East",
+      location: "SW 34th Street",
+      price: "$640/month",
+      priceValue: 640,
+      rating: 4.1,
+      members: 28,
+      image: "https://images.unsplash.com/photo-1662454419622-a41092ecd245?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBhcGFydG1lbnQlMjBsaXZpbmclMjByb29tfGVufDF8fHx8MTc1NzE1OTcxOXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
+      tags: ["Route 37", "Affordable", "Indian Community", "Near Walmart"],
+      busRoute: "37",
+      area: "SW Gainesville"
+    },
+    {
+      id: 10,
+      name: "Woodlands of Gainesville",
+      location: "SW 35th Place",
+      price: "$675/month",
+      priceValue: 675,
+      rating: 4.3,
+      members: 31,
+      image: "https://images.unsplash.com/photo-1580063665747-ab495581c9c1?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb2xsZWdlJTIwZG9ybSUyMGJ1aWxkaW5nfGVufDF8fHx8MTc1NzIzOTg1MXww&ixlib=rb-4.1.0&q=80&w=1080",
+      tags: ["Route 37", "Pool", "Furnished", "International Students"],
+      busRoute: "37",
+      area: "SW Gainesville"
     }
+  ]
+
+  // Filter communities based on search query and active filters
+  const filteredCommunities = useMemo(() => {
+    let filtered = allCommunities
+
+    // Filter by search query
+    if (searchQuery.trim()) {
+      const query = searchQuery.toLowerCase()
+      filtered = filtered.filter(community =>
+        community.name.toLowerCase().includes(query) ||
+        community.location.toLowerCase().includes(query) ||
+        community.tags.some(tag => tag.toLowerCase().includes(query)) ||
+        community.area.toLowerCase().includes(query)
+      )
+    }
+
+    // Filter by active filters
+    if (activeFilters.length > 0) {
+      filtered = filtered.filter(community => {
+        return activeFilters.every(filter => {
+          switch (filter) {
+            case 'SW Gainesville':
+              return community.area === 'SW Gainesville'
+            case 'International Students':
+              return community.tags.some(tag => 
+                tag.includes('International') || tag.includes('Grad Students')
+              )
+            case 'RTS Bus Route':
+              return community.busRoute === '37'
+            case 'Under $700':
+              return community.priceValue < 700
+            case 'Furnished':
+              return community.tags.includes('Furnished')
+            case 'Indian Community':
+              return community.tags.includes('Indian Community')
+            default:
+              return true
+          }
+        })
+      })
+    }
+
+    return filtered
+  }, [searchQuery, activeFilters])
+
+  const toggleFilter = (filter: string) => {
+    setActiveFilters(prev => 
+      prev.includes(filter) 
+        ? prev.filter(f => f !== filter)
+        : [...prev, filter]
+    )
+  }
+
+  const filterOptions = [
+    'SW Gainesville',
+    'International Students', 
+    'RTS Bus Route',
+    'Under $700',
+    'Furnished',
+    'Indian Community'
   ]
 
   return (
@@ -88,6 +237,8 @@ export function HomeTab() {
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
           <Input
             placeholder="Search Gainesville housing..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
             className="pl-10 pr-12 h-12 md:h-14 bg-gray-50 border-0 rounded-xl text-base"
           />
           <Button size="sm" className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-indigo-600 hover:bg-indigo-700 rounded-lg px-3 tap-feedback">
@@ -97,22 +248,91 @@ export function HomeTab() {
 
         {/* Quick Filters */}
         <div className="flex gap-2 overflow-x-auto md:overflow-visible">
-          <Badge variant="secondary" className="whitespace-nowrap bg-indigo-100 text-indigo-700 border-0 hover:bg-indigo-200 cursor-pointer transition-colors tap-feedback">
-            <MapPin className="w-3 h-3 mr-1" />
-            Near UF
-          </Badge>
-          <Badge variant="outline" className="whitespace-nowrap hover:bg-gray-50 cursor-pointer transition-colors tap-feedback">Under $600</Badge>
-          <Badge variant="outline" className="whitespace-nowrap hover:bg-gray-50 cursor-pointer transition-colors tap-feedback">Bus Route</Badge>
-          <Badge variant="outline" className="whitespace-nowrap hover:bg-gray-50 cursor-pointer transition-colors tap-feedback">Pet-friendly</Badge>
-          <Badge variant="outline" className="whitespace-nowrap hover:bg-gray-50 cursor-pointer transition-colors hidden md:inline-flex tap-feedback">Pool & Gym</Badge>
-          <Badge variant="outline" className="whitespace-nowrap hover:bg-gray-50 cursor-pointer transition-colors hidden lg:inline-flex tap-feedback">Parking</Badge>
+          {filterOptions.map((filter, index) => {
+            const isActive = activeFilters.includes(filter)
+            const isHidden = (index >= 4 && 'hidden md:inline-flex') || (index >= 5 && 'hidden lg:inline-flex') || ''
+            
+            return (
+              <Badge
+                key={filter}
+                variant={isActive ? "secondary" : "outline"}
+                onClick={() => toggleFilter(filter)}
+                className={`whitespace-nowrap cursor-pointer transition-colors tap-feedback ${
+                  isActive 
+                    ? 'bg-indigo-100 text-indigo-700 border-0 hover:bg-indigo-200' 
+                    : 'hover:bg-gray-50'
+                } ${isHidden}`}
+              >
+                {filter === 'SW Gainesville' && <MapPin className="w-3 h-3 mr-1" />}
+                {filter === 'RTS Bus Route' && <Bus className="w-3 h-3 mr-1" />}
+                {filter}
+              </Badge>
+            )
+          })}
+        </div>
+
+        {/* Active Filters Summary */}
+        {activeFilters.length > 0 && (
+          <div className="flex items-center gap-2 text-sm text-gray-600">
+            <span>Active filters:</span>
+            <div className="flex gap-1 flex-wrap">
+              {activeFilters.map(filter => (
+                <Badge
+                  key={filter}
+                  variant="secondary"
+                  className="bg-emerald-100 text-emerald-700 border-0 cursor-pointer hover:bg-emerald-200"
+                  onClick={() => toggleFilter(filter)}
+                >
+                  {filter} ×
+                </Badge>
+              ))}
+            </div>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setActiveFilters([])}
+              className="text-gray-500 hover:text-gray-700 p-1 h-auto"
+            >
+              Clear all
+            </Button>
+          </div>
+        )}
+
+        {/* Results Count */}
+        <div className="text-sm text-gray-600">
+          Showing {filteredCommunities.length} of {allCommunities.length} communities
+          {activeFilters.includes('RTS Bus Route') && (
+            <span className="ml-2 text-emerald-600 font-medium">
+              • All results are on Route 37 (GNVRTS)
+            </span>
+          )}
         </div>
       </div>
 
       {/* Communities Feed */}
       <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-          {communities.map((community) => (
+        {filteredCommunities.length === 0 ? (
+          <div className="text-center py-12">
+            <div className="text-gray-400 mb-4">
+              <Search className="w-12 h-12 mx-auto mb-4" />
+            </div>
+            <h3 className="heading-4 text-gray-600 mb-2">No communities found</h3>
+            <p className="body-normal text-gray-500 mb-4">
+              Try adjusting your search or filters to find more options.
+            </p>
+            <Button
+              variant="outline"
+              onClick={() => {
+                setSearchQuery("")
+                setActiveFilters([])
+              }}
+            >
+              Clear all filters
+            </Button>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+            {filteredCommunities.map((community) => (
             <Card key={community.id} className="overflow-hidden border-0 shadow-sm card-hover transition-all duration-300 hover:shadow-lg">
               <div className="relative">
                 <ImageWithFallback
@@ -156,6 +376,7 @@ export function HomeTab() {
                 <div className="flex flex-wrap gap-2 mb-4">
                   {community.tags.map((tag) => (
                     <Badge key={tag} variant="secondary" className="bg-emerald-100 text-emerald-700 border-0 text-xs">
+                      {tag === 'Route 37' && <Bus className="w-3 h-3 mr-1" />}
                       {tag}
                     </Badge>
                   ))}
@@ -166,8 +387,9 @@ export function HomeTab() {
                 </Button>
               </CardContent>
             </Card>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   )
