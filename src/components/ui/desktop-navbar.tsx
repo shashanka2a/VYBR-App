@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { useState } from "react"
-import { Home, Building2, Users, Calendar, MapPin, Menu, X } from "lucide-react"
+import { Home, Building2, Users, Calendar, User, Menu, X } from "lucide-react"
 import { Button } from "./button"
 import { cn } from "./utils"
 
@@ -17,7 +17,7 @@ const navItems = [
   { id: "housing", label: "Housing", icon: Building2 },
   { id: "roomies", label: "Roomies", icon: Users },
   { id: "events", label: "Events", icon: Calendar },
-  { id: "communities", label: "Communities", icon: MapPin },
+  { id: "profile", label: "Profile", icon: User },
 ]
 
 export function DesktopNavbar({ activeTab, onTabChange, className }: DesktopNavbarProps) {
@@ -44,8 +44,7 @@ export function DesktopNavbar({ activeTab, onTabChange, className }: DesktopNavb
               const Icon = item.icon
               const isActive = activeTab === item.id || 
                 (item.id === "home" && activeTab === "home") ||
-                (item.id === "housing" && activeTab === "chat") ||
-                (item.id === "communities" && activeTab === "home")
+                (item.id === "housing" && activeTab === "chat")
               
               return (
                 <Button
@@ -54,7 +53,6 @@ export function DesktopNavbar({ activeTab, onTabChange, className }: DesktopNavb
                   onClick={() => {
                     // Map desktop nav to existing tabs
                     if (item.id === "housing") onTabChange("chat")
-                    else if (item.id === "communities") onTabChange("home")
                     else onTabChange(item.id)
                   }}
                   className={cn(
@@ -109,8 +107,7 @@ export function DesktopNavbar({ activeTab, onTabChange, className }: DesktopNavb
               const Icon = item.icon
               const isActive = activeTab === item.id || 
                 (item.id === "home" && activeTab === "home") ||
-                (item.id === "housing" && activeTab === "chat") ||
-                (item.id === "communities" && activeTab === "home")
+                (item.id === "housing" && activeTab === "chat")
               
               return (
                 <Button
@@ -118,7 +115,6 @@ export function DesktopNavbar({ activeTab, onTabChange, className }: DesktopNavb
                   variant="ghost"
                   onClick={() => {
                     if (item.id === "housing") onTabChange("chat")
-                    else if (item.id === "communities") onTabChange("home")
                     else onTabChange(item.id)
                     setIsMobileMenuOpen(false)
                   }}

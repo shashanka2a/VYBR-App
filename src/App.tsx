@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { Home, MessageSquare, Users, Calendar } from "lucide-react";
+import { Home, MessageSquare, Users, Calendar, User } from "lucide-react";
 import { HomeTab } from "./components/HomeTab";
 import { ChatbotTab } from "./components/ChatbotTab";
 import { RoomiesTab } from "./components/RoomiesTab";
 import { EventsTab } from "./components/EventsTab";
+import { ProfileTab } from "./components/ProfileTab";
 import { Button } from "./components/ui/button";
 
 const tabs = [
@@ -11,6 +12,7 @@ const tabs = [
   { id: "chat", label: "My Vibe AI", icon: MessageSquare, component: ChatbotTab },
   { id: "roomies", label: "Roomies", icon: Users, component: RoomiesTab },
   { id: "events", label: "Events", icon: Calendar, component: EventsTab },
+  { id: "profile", label: "Profile", icon: User, component: ProfileTab },
 ];
 
 export default function App() {
