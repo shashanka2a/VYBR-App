@@ -187,26 +187,28 @@ export function EventsTab() {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {events.slice(1, 3).map((event) => (
-              <Card key={`rec-${event.id}`} className="p-4 bg-white/80 backdrop-blur-sm border-emerald-200">
-                <div className="flex items-start space-x-3">
-                  <div className="w-12 h-12 rounded-lg overflow-hidden flex-shrink-0">
+              <Card key={`rec-${event.id}`} className="p-5 bg-white/80 backdrop-blur-sm border-emerald-200">
+                <div className="flex items-start space-x-4">
+                  <div className="w-14 h-14 rounded-lg overflow-hidden flex-shrink-0">
                     <ImageWithFallback 
                       src={event.image}
                       alt={event.title}
                       className="w-full h-full object-cover"
                     />
                   </div>
-                  <div className="flex-1 min-w-0">
-                    <h4 className="font-medium text-gray-800 line-clamp-1">{event.title}</h4>
-                    <p className="text-sm text-gray-600 line-clamp-1">{formatDate(event.date)} • {event.time}</p>
-                    <div className="flex items-center justify-between mt-2">
-                      <Badge variant="secondary" className="text-xs bg-emerald-100 text-emerald-700">
+                  <div className="flex-1 min-w-0 space-y-3">
+                    <div>
+                      <h4 className="font-medium text-gray-800 line-clamp-1 text-base leading-tight">{event.title}</h4>
+                      <p className="text-sm text-gray-600 line-clamp-1 mt-1">{formatDate(event.date)} • {event.time}</p>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <Badge variant="secondary" className="text-xs bg-emerald-100 text-emerald-700 px-2 py-1">
                         {event.category}
                       </Badge>
                       <Button
                         size="sm"
                         onClick={() => handleRSVP(event.id)}
-                        className="h-6 px-3 text-xs bg-gradient-to-r from-emerald-500 to-indigo-500 hover:from-emerald-600 hover:to-indigo-600"
+                        className="h-8 px-4 text-xs font-medium bg-gradient-to-r from-emerald-500 to-indigo-500 hover:from-emerald-600 hover:to-indigo-600"
                       >
                         RSVP
                       </Button>
@@ -231,64 +233,72 @@ export function EventsTab() {
               viewMode === 'grid' ? 'h-full' : ''
             }`}>
               {viewMode === 'list' ? (
-                <div className="flex">
-                  <div className="w-24 h-24 md:w-32 md:h-32 flex-shrink-0">
+                <div className="flex flex-col sm:flex-row">
+                  <div className="w-full h-48 sm:w-28 sm:h-28 md:w-32 md:h-32 flex-shrink-0">
                     <ImageWithFallback 
                       src={event.image}
                       alt={event.title}
-                      className="w-full h-full object-cover rounded-l-lg"
+                      className="w-full h-full object-cover rounded-t-lg sm:rounded-l-lg sm:rounded-t-none"
                     />
                   </div>
-                  <div className="flex-1 p-4 md:p-6 space-y-2 md:space-y-3">
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <h3 className="font-semibold text-gray-800 line-clamp-1">{event.title}</h3>
-                        <p className="text-sm text-gray-600 line-clamp-2">{event.description}</p>
+                  <div className="flex-1 p-5 md:p-6 space-y-4 md:space-y-4">
+                    <div className="space-y-3">
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="flex-1 min-w-0">
+                          <h3 className="font-semibold text-gray-800 text-base md:text-lg leading-tight mb-2">{event.title}</h3>
+                          <p className="text-sm text-gray-600 line-clamp-2 leading-relaxed">{event.description}</p>
+                        </div>
+                        <Badge 
+                          variant="secondary" 
+                          className={`flex-shrink-0 px-2 py-1 text-xs ${event.category === 'Housing' ? 'bg-indigo-100 text-indigo-700' : 
+                            event.category === 'Social' ? 'bg-purple-100 text-purple-700' :
+                            event.category === 'Academic' ? 'bg-emerald-100 text-emerald-700' :
+                            'bg-gray-100 text-gray-700'}`}
+                        >
+                          {event.category}
+                        </Badge>
                       </div>
-                      <Badge 
-                        variant="secondary" 
-                        className={`ml-2 ${event.category === 'Housing' ? 'bg-indigo-100 text-indigo-700' : 
-                          event.category === 'Social' ? 'bg-purple-100 text-purple-700' :
-                          event.category === 'Academic' ? 'bg-emerald-100 text-emerald-700' :
-                          'bg-gray-100 text-gray-700'}`}
-                      >
-                        {event.category}
-                      </Badge>
                     </div>
                     
-                    <div className="flex items-center justify-between text-sm text-gray-500">
-                      <div className="flex items-center space-x-4">
+                    <div className="space-y-3">
+                      <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm text-gray-500">
                         <div className="flex items-center">
-                          <Calendar className="w-4 h-4 mr-1" />
-                          {formatDate(event.date)}
+                          <Calendar className="w-4 h-4 mr-2" />
+                          <span>{formatDate(event.date)}</span>
                         </div>
                         <div className="flex items-center">
-                          <Clock className="w-4 h-4 mr-1" />
-                          {event.time}
+                          <Clock className="w-4 h-4 mr-2" />
+                          <span>{event.time}</span>
                         </div>
                         <div className="flex items-center">
-                          <Users className="w-4 h-4 mr-1" />
-                          {event.attendees}/{event.maxAttendees}
+                          <Users className="w-4 h-4 mr-2" />
+                          <span>{event.attendees}/{event.maxAttendees}</span>
                         </div>
                       </div>
                       
-                      <Button
-                        size="sm"
-                        onClick={() => handleRSVP(event.id)}
-                        className={`h-8 ${event.isRSVPed 
-                          ? 'bg-emerald-600 hover:bg-emerald-700' 
-                          : 'bg-gradient-to-r from-emerald-500 to-indigo-500 hover:from-emerald-600 hover:to-indigo-600'
-                        }`}
-                      >
-                        {event.isRSVPed ? (
-                          <>
-                            <Check className="w-3 h-3 mr-1" />
-                            RSVP&apos;d
-                          </>
-                        ) : (
-                          'RSVP'
-                        )}
-                      </Button>
+                      <div className="flex items-center justify-between pt-2">
+                        <div className="flex items-center text-sm text-gray-500">
+                          <MapPin className="w-4 h-4 mr-2" />
+                          <span className="truncate">{event.location}</span>
+                        </div>
+                        <Button
+                          size="sm"
+                          onClick={() => handleRSVP(event.id)}
+                          className={`px-4 py-2 h-9 font-medium ${event.isRSVPed 
+                            ? 'bg-emerald-600 hover:bg-emerald-700' 
+                            : 'bg-gradient-to-r from-emerald-500 to-indigo-500 hover:from-emerald-600 hover:to-indigo-600'
+                          }`}
+                        >
+                          {event.isRSVPed ? (
+                            <>
+                              <Check className="w-4 h-4 mr-2" />
+                              RSVP&apos;d
+                            </>
+                          ) : (
+                            'RSVP'
+                          )}
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -321,33 +331,33 @@ export function EventsTab() {
                     </div>
                   </div>
 
-                  <div className="p-4 space-y-3">
-                    <div>
-                      <h3 className="font-semibold text-gray-800">{event.title}</h3>
-                      <p className="text-sm text-gray-600 mt-1 line-clamp-2">{event.description}</p>
+                  <div className="p-5 md:p-6 space-y-4">
+                    <div className="space-y-3">
+                      <h3 className="font-semibold text-gray-800 text-base leading-tight">{event.title}</h3>
+                      <p className="text-sm text-gray-600 line-clamp-2 leading-relaxed">{event.description}</p>
                     </div>
 
-                    <div className="space-y-2">
+                    <div className="space-y-3">
                       <div className="flex items-center text-sm text-gray-500">
-                        <Calendar className="w-4 h-4 mr-2" />
-                        {formatDate(event.date)} at {event.time}
+                        <Calendar className="w-4 h-4 mr-3" />
+                        <span>{formatDate(event.date)} at {event.time}</span>
                       </div>
                       <div className="flex items-center text-sm text-gray-500">
-                        <MapPin className="w-4 h-4 mr-2" />
-                        {event.location}
+                        <MapPin className="w-4 h-4 mr-3" />
+                        <span className="truncate">{event.location}</span>
                       </div>
                       <div className="flex items-center justify-between text-sm text-gray-500">
                         <div className="flex items-center">
-                          <Users className="w-4 h-4 mr-2" />
-                          {event.attendees}/{event.maxAttendees} attending
+                          <Users className="w-4 h-4 mr-3" />
+                          <span>{event.attendees}/{event.maxAttendees} attending</span>
                         </div>
-                        <span className="font-medium text-emerald-600">{event.price}</span>
+                        <span className="font-medium text-emerald-600 text-base">{event.price}</span>
                       </div>
                     </div>
 
-                    <div className="flex flex-wrap gap-1">
+                    <div className="flex flex-wrap gap-2 py-1">
                       {event.tags.map((tag) => (
-                        <Badge key={tag} variant="outline" className="text-xs border-gray-300 text-gray-600">
+                        <Badge key={tag} variant="outline" className="text-xs border-gray-300 text-gray-600 px-2 py-1">
                           {tag}
                         </Badge>
                       ))}
@@ -355,7 +365,7 @@ export function EventsTab() {
 
                     <Button
                       onClick={() => handleRSVP(event.id)}
-                      className={`w-full ${event.isRSVPed 
+                      className={`w-full h-11 font-medium ${event.isRSVPed 
                         ? 'bg-emerald-600 hover:bg-emerald-700' 
                         : 'bg-gradient-to-r from-emerald-500 to-indigo-500 hover:from-emerald-600 hover:to-indigo-600'
                       }`}
