@@ -1,6 +1,6 @@
 {
-  "name": "Mobile PWA - Find Your Community",
-  "short_name": "Mobile PWA",
+  "name": "VYBR - Find Your Community",
+  "short_name": "VYBR",
   "description": "Find your perfect community, connect with compatible roommates, and discover exciting events near you.",
   "start_url": "/",
   "display": "standalone",

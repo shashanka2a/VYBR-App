@@ -4,15 +4,15 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        <meta name="description" content="Mobile PWA with 4 Tabs - Find your community, connect with roommates, and discover events" />
-        <meta name="keywords" content="housing, roommates, community, events, mobile app" />
-        <meta name="author" content="Mobile PWA Team" />
+        <meta name="description" content="VYBR - Find your community, connect with roommates, and discover events" />
+        <meta name="keywords" content="housing, roommates, community, events, mobile app, VYBR" />
+        <meta name="author" content="VYBR Team" />
         
         {/* PWA Meta Tags */}
-        <meta name="application-name" content="Mobile PWA" />
+        <meta name="application-name" content="VYBR" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-        <meta name="apple-mobile-web-app-title" content="Mobile PWA" />
+        <meta name="apple-mobile-web-app-title" content="VYBR" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="mobile-web-app-capable" content="yes" />
         <meta name="msapplication-config" content="/browserconfig.xml" />
