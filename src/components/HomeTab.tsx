@@ -1,5 +1,5 @@
-import { useState, useMemo } from 'react'
-import { Search, MapPin, Filter, Heart, Star, Users, Bus } from 'lucide-react'
+import { useState, useMemo, useEffect } from 'react'
+import { Search, MapPin, Filter, Heart, Star, Users, Bus, Home, Building } from 'lucide-react'
 import { Input } from './ui/input'
 import { Button } from './ui/button'
 import { Card, CardContent } from './ui/card'
@@ -18,13 +18,51 @@ interface Community {
   tags: string[]
   busRoute: string
   area: string
+  housingType?: string
+  internationalFriendly?: boolean
+  description?: string
 }
 
 export function HomeTab() {
   const [searchQuery, setSearchQuery] = useState("")
   const [activeFilters, setActiveFilters] = useState<string[]>([])
+  const [allCommunities, setAllCommunities] = useState<Community[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
 
-  const allCommunities: Community[] = [
+  // Fetch housing data from API
+  useEffect(() => {
+    fetchHousingData()
+  }, [])
+
+  const fetchHousingData = async () => {
+    try {
+      setLoading(true)
+      setError(null)
+      
+      // Try to fetch from API first, fall back to mock data if API is not available
+      try {
+        const response = await fetch('/api/housing')
+        if (response.ok) {
+          const data = await response.json()
+          setAllCommunities(data.housing || [])
+        } else {
+          throw new Error('API not available')
+        }
+      } catch (apiError) {
+        // Fall back to mock data
+        console.log('API not available, using mock data')
+        setAllCommunities(getMockCommunities())
+      }
+    } catch (err) {
+      setError('Failed to load housing data')
+      console.error('Error fetching housing data:', err)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const getMockCommunities = (): Community[] => [
     {
       id: 1,
       name: "Stoneridge Apartments",
@@ -177,20 +215,21 @@ export function HomeTab() {
       filtered = filtered.filter(community => {
         return activeFilters.every(filter => {
           switch (filter) {
-            case 'SW Gainesville':
-              return community.area === 'SW Gainesville'
+            case 'Off-Campus':
+              return community.housingType === 'off_campus'
+            case 'On-Campus':
+              return community.housingType === 'on_campus'
             case 'International Students':
-              return community.tags.some(tag => 
-                tag.includes('International') || tag.includes('Grad Students')
-              )
+              return community.internationalFriendly || 
+                     community.tags.some(tag => 
+                       tag.includes('International') || tag.includes('Grad Students')
+                     )
             case 'RTS Bus Route':
-              return community.busRoute === '37'
+              return community.busRoute && community.busRoute.length > 0
             case 'Under $700':
               return community.priceValue < 700
             case 'Furnished':
               return community.tags.includes('Furnished')
-            case 'Indian Community':
-              return community.tags.includes('Indian Community')
             default:
               return true
           }
@@ -199,7 +238,7 @@ export function HomeTab() {
     }
 
     return filtered
-  }, [searchQuery, activeFilters])
+  }, [searchQuery, activeFilters, allCommunities])
 
   const toggleFilter = (filter: string) => {
     setActiveFilters(prev => 
@@ -210,12 +249,12 @@ export function HomeTab() {
   }
 
   const filterOptions = [
-    'SW Gainesville',
+    'Off-Campus',
+    'On-Campus',
     'International Students', 
-    'RTS Bus Route',
     'Under $700',
     'Furnished',
-    'Indian Community'
+    'RTS Bus Route'
   ]
 
   return (
@@ -263,7 +302,9 @@ export function HomeTab() {
                     : 'hover:bg-gray-50'
                 } ${isHidden}`}
               >
-                {filter === 'SW Gainesville' && <MapPin className="w-3 h-3 mr-1" />}
+                {filter === 'Off-Campus' && <Building className="w-3 h-3 mr-1" />}
+                {filter === 'On-Campus' && <Home className="w-3 h-3 mr-1" />}
+                {filter === 'International Students' && <Users className="w-3 h-3 mr-1" />}
                 {filter === 'RTS Bus Route' && <Bus className="w-3 h-3 mr-1" />}
                 {filter}
               </Badge>
@@ -309,9 +350,35 @@ export function HomeTab() {
         </div>
       </div>
 
+      {/* Loading State */}
+      {loading && (
+        <div className="text-center py-12">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading housing options...</p>
+        </div>
+      )}
+
+      {/* Error State */}
+      {error && (
+        <div className="text-center py-12">
+          <div className="text-red-400 mb-4">
+            <MapPin className="w-12 h-12 mx-auto mb-4" />
+          </div>
+          <h3 className="heading-4 text-red-600 mb-2">Error Loading Housing</h3>
+          <p className="body-normal text-red-500 mb-4">{error}</p>
+          <Button
+            variant="outline"
+            onClick={fetchHousingData}
+            className="border-red-300 text-red-700 hover:bg-red-50"
+          >
+            Try Again
+          </Button>
+        </div>
+      )}
+
       {/* Communities Feed */}
       <div className="max-w-6xl mx-auto">
-        {filteredCommunities.length === 0 ? (
+        {!loading && !error && filteredCommunities.length === 0 ? (
           <div className="text-center py-12">
             <div className="text-gray-400 mb-4">
               <Search className="w-12 h-12 mx-auto mb-4" />
