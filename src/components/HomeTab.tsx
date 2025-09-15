@@ -329,9 +329,14 @@ export function HomeTab() {
         return activeFilters.every(filter => {
           switch (filter) {
             case 'Off-Campus':
-              return community.housingType === 'off_campus'
+              return community.housingType === 'off_campus' && (
+                community.internationalFriendly || 
+                community.tags.some(tag => 
+                  tag.includes('International') || tag.includes('Grad Students')
+                )
+              )
             case 'On-Campus':
-              return community.housingType === 'on_campus'
+              return false // Coming soon - no on-campus results
             case 'International Students':
               return community.internationalFriendly || 
                      community.tags.some(tag => 
@@ -492,24 +497,45 @@ export function HomeTab() {
       {/* Communities Feed */}
       <div className="max-w-6xl mx-auto">
         {!loading && !error && filteredCommunities.length === 0 ? (
-          <div className="text-center py-12">
-            <div className="text-muted-foreground/60 mb-4">
-              <Search className="w-12 h-12 mx-auto mb-4" />
+          activeFilters.includes('On-Campus') ? (
+            <div className="text-center py-12">
+              <div className="text-primary/60 mb-4">
+                <Home className="w-12 h-12 mx-auto mb-4" />
+              </div>
+              <h3 className="heading-4 text-primary mb-2">On-Campus Housing Coming Soon!</h3>
+              <p className="body-normal text-muted-foreground/80 mb-4">
+                We're working on adding UF on-campus housing options. Check back soon for dorm and residence hall listings.
+              </p>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setActiveFilters(prev => prev.filter(f => f !== 'On-Campus'))
+                }}
+                className="border-primary/30 text-primary hover:bg-primary/10"
+              >
+                Browse Off-Campus Options
+              </Button>
             </div>
-            <h3 className="heading-4 text-muted-foreground mb-2">No communities found</h3>
-            <p className="body-normal text-muted-foreground/80 mb-4">
-              Try adjusting your search or filters to find more options.
-            </p>
-            <Button
-              variant="outline"
-              onClick={() => {
-                setSearchQuery("")
-                setActiveFilters([])
-              }}
-            >
-              Clear all filters
-            </Button>
-          </div>
+          ) : (
+            <div className="text-center py-12">
+              <div className="text-muted-foreground/60 mb-4">
+                <Search className="w-12 h-12 mx-auto mb-4" />
+              </div>
+              <h3 className="heading-4 text-muted-foreground mb-2">No communities found</h3>
+              <p className="body-normal text-muted-foreground/80 mb-4">
+                Try adjusting your search or filters to find more options.
+              </p>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setSearchQuery("")
+                  setActiveFilters([])
+                }}
+              >
+                Clear all filters
+              </Button>
+            </div>
+          )
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
             {filteredCommunities.map((community) => (

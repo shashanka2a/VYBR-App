@@ -2,11 +2,10 @@
 
 import { useState } from "react";
 import Head from "next/head";
-import { Home, MessageSquare, Users, Calendar, User } from "lucide-react";
+import { Home, MessageSquare, Users, User } from "lucide-react";
 import { HomeTab } from "@/components/HomeTab";
 import { ChatbotTab } from "@/components/ChatbotTab";
 import { RoomiesTab } from "@/components/RoomiesTab";
-import { EventsTab } from "@/components/EventsTab";
 import { ProfileTab } from "@/components/ProfileTab";
 import { Button } from "@/components/ui/button";
 import { DesktopNavbar } from "@/components/ui/desktop-navbar";
@@ -15,7 +14,6 @@ const tabs = [
   { id: "home", label: "Home", icon: Home, component: HomeTab },
   { id: "chat", label: "My Vibe AI", icon: MessageSquare, component: ChatbotTab },
   { id: "roomies", label: "Roomies", icon: Users, component: RoomiesTab },
-  { id: "events", label: "Events", icon: Calendar, component: EventsTab },
   { id: "profile", label: "Profile", icon: User, component: ProfileTab },
 ];
 
@@ -28,7 +26,7 @@ export default function HomePage() {
     <>
       <Head>
         <title>VYBR - Find Your Community</title>
-        <meta name="description" content="Find your perfect community, connect with compatible roommates, and discover exciting events near you." />
+        <meta name="description" content="Find your perfect community and connect with compatible roommates in Gainesville." />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
       </Head>
       
