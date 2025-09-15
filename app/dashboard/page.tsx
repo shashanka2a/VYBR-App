@@ -1,5 +1,7 @@
 'use client'
 
+import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { useAuth } from '@/lib/hooks/useAuth'
 import { Button } from '@/components/ui/button'
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
@@ -7,6 +9,26 @@ import { User, Mail, Shield } from 'lucide-react'
 
 export default function DashboardPage() {
   const { user, logout } = useAuth()
+  const router = useRouter()
+
+  useEffect(() => {
+    // Check if onboarding is complete
+    checkOnboardingStatus()
+  }, [])
+
+  const checkOnboardingStatus = async () => {
+    try {
+      const response = await fetch('/api/onboarding/status')
+      if (response.ok) {
+        const data = await response.json()
+        if (!data.onboardingCompleted) {
+          router.push('/onboarding')
+        }
+      }
+    } catch (error) {
+      console.error('Failed to check onboarding status:', error)
+    }
+  }
 
   return (
     <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">

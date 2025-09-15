@@ -15,13 +15,53 @@ model User {
   email     String   @unique
   password  String?
   isVerified Boolean @default(false)
+  onboardingCompleted Boolean @default(false)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   // OTP verification
   otpCodes  OtpCode[]
+  
+  // User preferences
+  preferences UserPreferences?
 
   @@map("users")
+}
+
+model UserPreferences {
+  id        String   @id @default(cuid())
+  userId    String   @unique
+  
+  // Personal info
+  nationality String?
+  age       Int?
+  
+  // Lifestyle preferences
+  lifestyle String[] // e.g., ["quiet", "social", "studious", "party-friendly"]
+  
+  // Budget preferences
+  budgetMin Int?
+  budgetMax Int?
+  
+  // Housing preferences
+  housingType String[] // e.g., ["off_campus", "on_campus"]
+  amenities   String[] // e.g., ["gym", "pool", "parking", "furnished"]
+  
+  // Additional preferences
+  petFriendly Boolean @default(false)
+  smokingAllowed Boolean @default(false)
+  internationalFriendly Boolean @default(false)
+  
+  // AI chat conversation
+  chatHistory Json[]
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("user_preferences")
 }
 
 model OtpCode {
