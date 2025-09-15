@@ -14,7 +14,9 @@ describe('Authentication System Tests', () => {
   describe('Email Validation', () => {
     it('should validate .edu email addresses correctly', () => {
       const validateEduEmail = (email: string): boolean => {
-        return email.toLowerCase().endsWith('.edu') && email.includes('@')
+        if (!email || typeof email !== 'string') return false
+        const emailRegex = /^[^\s@]+@[^\s@]+\.edu$/i
+        return emailRegex.test(email)
       }
 
       expect(validateEduEmail('student@university.edu')).toBe(true)
@@ -26,7 +28,9 @@ describe('Authentication System Tests', () => {
 
     it('should reject malformed email addresses', () => {
       const validateEduEmail = (email: string): boolean => {
-        return email.toLowerCase().endsWith('.edu') && email.includes('@')
+        if (!email || typeof email !== 'string') return false
+        const emailRegex = /^[^\s@]+@[^\s@]+\.edu$/i
+        return emailRegex.test(email)
       }
 
       expect(validateEduEmail('')).toBe(false)
@@ -39,7 +43,10 @@ describe('Authentication System Tests', () => {
   describe('Password Validation', () => {
     it('should validate password strength', () => {
       const validatePassword = (password: string): boolean => {
-        return password.length >= 8 && /[A-Z]/.test(password) && /[0-9]/.test(password)
+        return password.length >= 8 && 
+               /[A-Z]/.test(password) && 
+               /[a-z]/.test(password) && 
+               /[0-9]/.test(password)
       }
 
       expect(validatePassword('StrongPass123')).toBe(true)
@@ -83,12 +90,15 @@ describe('Authentication System Tests', () => {
   describe('User Preferences Structure', () => {
     it('should validate user preferences schema', () => {
       const validatePreferences = (prefs: any): boolean => {
+        if (!prefs || typeof prefs !== 'object') return false
+        
         const requiredFields = ['nationality', 'lifestyle', 'budgetMin', 'budgetMax']
-        const optionalFields = ['age', 'housingType', 'amenities', 'petFriendly']
         
         // Check if at least some required fields exist
-        const hasRequiredFields = requiredFields.some(field => prefs.hasOwnProperty(field))
-        return hasRequiredFields && typeof prefs === 'object' && prefs !== null
+        const hasRequiredFields = requiredFields.some(field => 
+          prefs.hasOwnProperty && prefs.hasOwnProperty(field)
+        )
+        return hasRequiredFields
       }
 
       const validPrefs = {
@@ -119,10 +129,9 @@ describe('Authentication System Tests', () => {
         timestamp: Date
       }
 
-      const validateChatMessage = (msg: any): msg is ChatMessage => {
+      const validateChatMessage = (msg: any): boolean => {
+        if (!msg || typeof msg !== 'object') return false
         return (
-          msg &&
-          typeof msg === 'object' &&
           (msg.role === 'assistant' || msg.role === 'user') &&
           typeof msg.content === 'string' &&
           msg.content.length > 0 &&

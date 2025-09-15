@@ -5,7 +5,7 @@
 
 // Mock Next.js Request/Response
 const mockRequest = (body: any, headers: Record<string, string> = {}) => ({
-  json: async () => body,
+  json: async (): Promise<any> => body,
   cookies: {
     get: (name: string) => headers[`cookie-${name}`] ? { value: headers[`cookie-${name}`] } : undefined
   },
@@ -14,15 +14,19 @@ const mockRequest = (body: any, headers: Record<string, string> = {}) => ({
 
 const mockResponse = () => {
   const cookies = new Map()
-  return {
+  const response = {
     status: 200,
-    json: (data: any) => ({ status: mockResponse.status, json: async () => data }),
+    json: (data: any): { status: number; json: () => Promise<any> } => ({ 
+      status: response.status, 
+      json: async (): Promise<any> => data 
+    }),
     cookies: {
       set: (name: string, value: string, options: any) => cookies.set(name, { value, ...options }),
       get: (name: string) => cookies.get(name),
       delete: (name: string) => cookies.delete(name)
     }
   }
+  return response
 }
 
 describe('API Endpoints Integration', () => {
