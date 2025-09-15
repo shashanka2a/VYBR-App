@@ -119,7 +119,7 @@ export function LoginForm() {
         </form>
 
         <div className="mt-4 text-center text-sm text-gray-600">
-          Don't have an account?{' '}
+          Don&apos;t have an account?{' '}
           <Button variant="link" className="p-0" onClick={() => router.push('/auth/register')}>
             Create account
           </Button>

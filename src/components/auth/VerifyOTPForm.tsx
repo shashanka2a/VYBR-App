@@ -177,7 +177,7 @@ export function VerifyOTPForm() {
 
         <div className="mt-6 text-center">
           <div className="text-sm text-gray-600 mb-2">
-            Didn't receive the code?
+            Didn&apos;t receive the code?
           </div>
           <Button
             variant="outline"

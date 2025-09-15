@@ -41,7 +41,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Get existing chat history
-    const existingHistory: OnboardingMessage[] = user.preferences?.chatHistory as OnboardingMessage[] || []
+    const existingHistory: OnboardingMessage[] = (user.preferences?.chatHistory as unknown as OnboardingMessage[]) || []
 
     // Add user message to history
     const userMessage: OnboardingMessage = {

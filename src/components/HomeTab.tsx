@@ -504,7 +504,7 @@ export function HomeTab() {
               </div>
               <h3 className="heading-4 text-primary mb-2">On-Campus Housing Coming Soon!</h3>
               <p className="body-normal text-muted-foreground/80 mb-4">
-                We're working on adding UF on-campus housing options. Check back soon for dorm and residence hall listings.
+                We&apos;re working on adding UF on-campus housing options. Check back soon for dorm and residence hall listings.
               </p>
               <Button
                 variant="outline"

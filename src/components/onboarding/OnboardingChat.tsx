@@ -64,7 +64,7 @@ export function OnboardingChat({ onComplete }: OnboardingChatProps) {
   const startConversation = () => {
     const welcomeMessage: ChatMessage = {
       role: 'assistant',
-      content: "Hi there! 👋 I'm VYBR's AI assistant, and I'm excited to help you find the perfect housing match! Let's start by learning about your background. What country are you from? 🌍",
+      content: "Hi there! 👋 I&apos;m VYBR&apos;s AI assistant, and I&apos;m excited to help you find the perfect housing match! Let&apos;s start by learning about your background. What country are you from? 🌍",
       timestamp: new Date()
     }
     setMessages([welcomeMessage])
@@ -117,7 +117,7 @@ export function OnboardingChat({ onComplete }: OnboardingChatProps) {
       console.error('Failed to send message:', error)
       const errorMessage: ChatMessage = {
         role: 'assistant',
-        content: "Sorry, I'm having trouble connecting right now. Please try again!",
+        content: "Sorry, I&apos;m having trouble connecting right now. Please try again!",
         timestamp: new Date()
       }
       setMessages(prev => [...prev, errorMessage])
@@ -137,7 +137,7 @@ export function OnboardingChat({ onComplete }: OnboardingChatProps) {
     <div className="max-w-2xl mx-auto h-full flex flex-col">
       <div className="mb-4 text-center">
         <h2 className="text-2xl font-bold text-gray-900 mb-2">Welcome to VYBR! 🎉</h2>
-        <p className="text-gray-600">Let's personalize your housing experience with a quick chat</p>
+        <p className="text-gray-600">Let&apos;s personalize your housing experience with a quick chat</p>
       </div>
 
       <Card className="flex-1 flex flex-col">

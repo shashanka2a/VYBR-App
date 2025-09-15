@@ -76,7 +76,7 @@ export default function DashboardPage() {
             </CardHeader>
             <CardContent>
               <p className="text-gray-600">
-                Your authentication system is now working! You've successfully:
+                Your authentication system is now working! You&apos;ve successfully:
               </p>
               <ul className="mt-4 space-y-2 text-sm text-gray-600">
                 <li>✅ Registered with your .edu email</li>
