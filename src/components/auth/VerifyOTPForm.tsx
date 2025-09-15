@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, Suspense } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -9,7 +9,6 @@ import { useAuth } from '@/lib/hooks/useAuth'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { Alert, AlertDescription } from '@/components/ui/alert'
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card'
 import { Loader2, Mail } from 'lucide-react'
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp'
 
@@ -116,98 +115,103 @@ export function VerifyOTPForm() {
   }
 
   return (
-    <Card className="w-full max-w-md">
-      <CardHeader>
-        <CardTitle className="text-2xl text-center">Verify Your Email</CardTitle>
-        <div className="text-center text-sm text-gray-600">
+    <div className="w-full max-w-md mx-auto bg-white p-8 rounded-lg shadow-sm">
+      <div className="mb-6">
+        <h1 className="text-2xl font-medium text-center text-gray-900">Verify Your Email</h1>
+        <div className="text-center text-sm text-gray-600 mt-2">
           We sent a 6-digit code to
           <div className="font-medium text-gray-900">{email}</div>
         </div>
-      </CardHeader>
-      <CardContent>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-          <input type="hidden" {...register('email')} />
-          
-          <div className="space-y-2">
-            <Label htmlFor="code">Verification Code</Label>
-            <div className="flex justify-center">
-              <InputOTP
-                maxLength={6}
-                value={code}
-                onChange={(value) => setValue('code', value)}
-              >
-                <InputOTPGroup>
-                  <InputOTPSlot index={0} />
-                  <InputOTPSlot index={1} />
-                  <InputOTPSlot index={2} />
-                  <InputOTPSlot index={3} />
-                  <InputOTPSlot index={4} />
-                  <InputOTPSlot index={5} />
-                </InputOTPGroup>
-              </InputOTP>
-            </div>
-            {errors.code && (
-              <p className="text-sm text-red-600 text-center">{errors.code.message}</p>
-            )}
+      </div>
+      
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <input type="hidden" {...register('email')} />
+        
+        <div className="space-y-1">
+          <Label htmlFor="code" className="text-sm font-medium text-gray-700">Verification Code</Label>
+          <div className="flex justify-center">
+            <InputOTP
+              maxLength={6}
+              value={code}
+              onChange={(value) => setValue('code', value)}
+              autoComplete="one-time-code"
+            >
+              <InputOTPGroup>
+                <InputOTPSlot index={0} />
+                <InputOTPSlot index={1} />
+                <InputOTPSlot index={2} />
+                <InputOTPSlot index={3} />
+                <InputOTPSlot index={4} />
+                <InputOTPSlot index={5} />
+              </InputOTPGroup>
+            </InputOTP>
           </div>
-
-          {error && (
-            <Alert variant="destructive">
-              <AlertDescription>{error}</AlertDescription>
-            </Alert>
+          {errors.code && (
+            <p className="text-sm text-red-600 text-center">{errors.code.message}</p>
           )}
-
-          {success && (
-            <Alert>
-              <AlertDescription>{success}</AlertDescription>
-            </Alert>
-          )}
-
-          <Button type="submit" className="w-full" disabled={isLoading || code.length !== 6}>
-            {isLoading ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Verifying...
-              </>
-            ) : (
-              'Verify Email'
-            )}
-          </Button>
-        </form>
-
-        <div className="mt-6 text-center">
-          <div className="text-sm text-gray-600 mb-2">
-            Didn&apos;t receive the code?
-          </div>
-          <Button
-            variant="outline"
-            onClick={handleResendOTP}
-            disabled={isResending || countdown > 0}
-            className="w-full"
-          >
-            {isResending ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Sending...
-              </>
-            ) : countdown > 0 ? (
-              `Resend in ${countdown}s`
-            ) : (
-              <>
-                <Mail className="mr-2 h-4 w-4" />
-                Resend Code
-              </>
-            )}
-          </Button>
         </div>
 
-        <div className="mt-4 text-center text-sm text-gray-600">
-          Wrong email?{' '}
-          <Button variant="link" className="p-0" onClick={() => router.push('/auth/register')}>
-            Go back
-          </Button>
+        {error && (
+          <Alert variant="destructive" className="mt-4">
+            <AlertDescription>{error}</AlertDescription>
+          </Alert>
+        )}
+
+        {success && (
+          <Alert className="mt-4 border-green-200 bg-green-50">
+            <AlertDescription className="text-green-800">{success}</AlertDescription>
+          </Alert>
+        )}
+
+        <Button 
+          type="submit" 
+          className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-md font-medium transition-colors duration-200"
+          disabled={isLoading || code.length !== 6}
+        >
+          {isLoading ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Verifying...
+            </>
+          ) : (
+            'Verify Email'
+          )}
+        </Button>
+      </form>
+
+      <div className="mt-6 text-center">
+        <div className="text-sm text-gray-600 mb-3">
+          Didn&apos;t receive the code?
         </div>
-      </CardContent>
-    </Card>
+        <button
+          type="button"
+          onClick={handleResendOTP}
+          disabled={isResending || countdown > 0}
+          className="w-full px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+        >
+          {isResending ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin inline" />
+              Sending...
+            </>
+          ) : countdown > 0 ? (
+            `Resend in ${countdown}s`
+          ) : (
+            'Resend Code'
+          )}
+        </button>
+      </div>
+
+      <div className="mt-6 text-center text-sm text-gray-600">
+        Wrong email?{' '}
+        <button 
+          type="button"
+          onClick={() => router.push('/auth/register')}
+          className="text-blue-600 hover:text-blue-500 font-medium"
+        >
+          Go back
+        </button>
+      </div>
+    </div>
   )
 }
