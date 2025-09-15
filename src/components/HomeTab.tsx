@@ -261,10 +261,10 @@ export function HomeTab() {
     <div className="p-4 md:p-6 lg:p-8 pb-20 md:pb-8 space-y-6 md:space-y-8">
       {/* Header */}
       <div className="text-center space-y-2 md:space-y-3 max-w-4xl mx-auto">
-        <h1 className="heading-1 bg-gradient-to-r from-emerald-600 to-indigo-600 bg-clip-text text-transparent">
+        <h1 className="heading-1 bg-gradient-to-r from-accent-emerald to-primary bg-clip-text text-transparent">
           Find Your Community
         </h1>
-        <p className="body-normal md:body-large text-gray-600">
+        <p className="body-normal md:body-large text-muted-foreground">
           Discover amazing housing options in Gainesville, connect with compatible roommates, and find your perfect living space near UF.
         </p>
       </div>
@@ -273,14 +273,14 @@ export function HomeTab() {
       <div className="space-y-4 md:space-y-6 max-w-4xl mx-auto">
         {/* Search Bar */}
         <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-5 h-5" />
           <Input
             placeholder="Search Gainesville housing..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10 pr-12 h-12 md:h-14 bg-gray-50 border-0 rounded-xl text-base"
+            className="pl-10 pr-12 h-12 md:h-14 bg-accent border-0 rounded-xl text-base"
           />
-          <Button size="sm" className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-indigo-600 hover:bg-indigo-700 rounded-lg px-3 tap-feedback">
+          <Button size="sm" className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-primary hover:bg-primary/90 rounded-lg px-3 tap-feedback">
             <Filter className="w-4 h-4" />
           </Button>
         </div>
@@ -298,8 +298,8 @@ export function HomeTab() {
                 onClick={() => toggleFilter(filter)}
                 className={`whitespace-nowrap cursor-pointer transition-colors tap-feedback ${
                   isActive 
-                    ? 'bg-indigo-100 text-indigo-700 border-0 hover:bg-indigo-200' 
-                    : 'hover:bg-gray-50'
+                    ? 'bg-primary-100 text-primary-700 border-0 hover:bg-primary-100/80' 
+                    : 'hover:bg-accent'
                 } ${isHidden}`}
               >
                 {filter === 'Off-Campus' && <Building className="w-3 h-3 mr-1" />}
@@ -314,14 +314,14 @@ export function HomeTab() {
 
         {/* Active Filters Summary */}
         {activeFilters.length > 0 && (
-          <div className="flex items-center gap-2 text-sm text-gray-600">
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <span>Active filters:</span>
             <div className="flex gap-1 flex-wrap">
               {activeFilters.map(filter => (
                 <Badge
                   key={filter}
                   variant="secondary"
-                  className="bg-emerald-100 text-emerald-700 border-0 cursor-pointer hover:bg-emerald-200"
+                  className="bg-success/20 text-success border-0 cursor-pointer hover:bg-success/30"
                   onClick={() => toggleFilter(filter)}
                 >
                   {filter} ×
@@ -332,7 +332,7 @@ export function HomeTab() {
               variant="ghost"
               size="sm"
               onClick={() => setActiveFilters([])}
-              className="text-gray-500 hover:text-gray-700 p-1 h-auto"
+              className="text-muted-foreground hover:text-foreground p-1 h-auto"
             >
               Clear all
             </Button>
@@ -340,10 +340,10 @@ export function HomeTab() {
         )}
 
         {/* Results Count */}
-        <div className="text-sm text-gray-600">
+        <div className="text-sm text-muted-foreground">
           Showing {filteredCommunities.length} of {allCommunities.length} communities
           {activeFilters.includes('RTS Bus Route') && (
-            <span className="ml-2 text-emerald-600 font-medium">
+            <span className="ml-2 text-success font-medium">
               • All results are on Route 37 (GNVRTS)
             </span>
           )}
@@ -353,23 +353,23 @@ export function HomeTab() {
       {/* Loading State */}
       {loading && (
         <div className="text-center py-12">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600 mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading housing options...</p>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Loading housing options...</p>
         </div>
       )}
 
       {/* Error State */}
       {error && (
         <div className="text-center py-12">
-          <div className="text-red-400 mb-4">
+          <div className="text-error/60 mb-4">
             <MapPin className="w-12 h-12 mx-auto mb-4" />
           </div>
-          <h3 className="heading-4 text-red-600 mb-2">Error Loading Housing</h3>
-          <p className="body-normal text-red-500 mb-4">{error}</p>
+          <h3 className="heading-4 text-error mb-2">Error Loading Housing</h3>
+          <p className="body-normal text-error/80 mb-4">{error}</p>
           <Button
             variant="outline"
             onClick={fetchHousingData}
-            className="border-red-300 text-red-700 hover:bg-red-50"
+            className="border-error/30 text-error hover:bg-error/10"
           >
             Try Again
           </Button>
@@ -380,11 +380,11 @@ export function HomeTab() {
       <div className="max-w-6xl mx-auto">
         {!loading && !error && filteredCommunities.length === 0 ? (
           <div className="text-center py-12">
-            <div className="text-gray-400 mb-4">
+            <div className="text-muted-foreground/60 mb-4">
               <Search className="w-12 h-12 mx-auto mb-4" />
             </div>
-            <h3 className="heading-4 text-gray-600 mb-2">No communities found</h3>
-            <p className="body-normal text-gray-500 mb-4">
+            <h3 className="heading-4 text-muted-foreground mb-2">No communities found</h3>
+            <p className="body-normal text-muted-foreground/80 mb-4">
               Try adjusting your search or filters to find more options.
             </p>
             <Button
@@ -420,7 +420,7 @@ export function HomeTab() {
                 <div className="flex justify-between items-start mb-3">
                   <div className="flex-1">
                     <h3 className="heading-4 mb-2">{community.name}</h3>
-                    <div className="flex flex-col md:flex-row md:items-center text-gray-600 mb-2 space-y-1 md:space-y-0 md:space-x-4">
+                    <div className="flex flex-col md:flex-row md:items-center text-muted-foreground mb-2 space-y-1 md:space-y-0 md:space-x-4">
                       <div className="flex items-center">
                         <MapPin className="w-4 h-4 mr-1" />
                         <span className="body-small">{community.location}</span>
@@ -436,20 +436,20 @@ export function HomeTab() {
                       <Star className="w-4 h-4 text-amber-400 mr-1" />
                       <span className="body-small font-medium">{community.rating}</span>
                     </div>
-                    <div className="text-emerald-600 font-semibold">{community.price}</div>
+                    <div className="text-success font-semibold">{community.price}</div>
                   </div>
                 </div>
 
                 <div className="flex flex-wrap gap-2 mb-4">
                   {community.tags.map((tag) => (
-                    <Badge key={tag} variant="secondary" className="bg-emerald-100 text-emerald-700 border-0 text-xs">
+                    <Badge key={tag} variant="secondary" className="bg-success/20 text-success border-0 text-xs">
                       {tag === 'Route 37' && <Bus className="w-3 h-3 mr-1" />}
                       {tag}
                     </Badge>
                   ))}
                 </div>
 
-                <Button className="w-full bg-gradient-to-r from-emerald-500 to-indigo-500 hover:from-emerald-600 hover:to-indigo-600 tap-feedback">
+                <Button className="w-full bg-gradient-to-r from-success to-primary hover:from-success/90 hover:to-primary/90 tap-feedback">
                   View Details
                 </Button>
               </CardContent>

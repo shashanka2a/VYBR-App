@@ -32,7 +32,7 @@ export default function HomePage() {
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
       </Head>
       
-      <div className="min-h-screen bg-gray-50 flex flex-col">
+      <div className="min-h-screen bg-background flex flex-col">
         {/* Desktop Navigation */}
         <div className="hidden md:block">
           <DesktopNavbar activeTab={activeTab} onTabChange={setActiveTab} />
@@ -47,7 +47,7 @@ export default function HomePage() {
             </div>
 
             {/* Mobile Bottom Navigation */}
-            <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-md bg-white border-t border-gray-200 px-2 py-2 z-50">
+            <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 w-full max-w-md bg-card border-t border-border px-2 py-2 z-50">
               <div className="flex justify-around items-center">
                 {tabs.map((tab) => {
                   const Icon = tab.icon;
@@ -60,16 +60,16 @@ export default function HomePage() {
                       onClick={() => setActiveTab(tab.id)}
                       className={`flex-col space-y-1 h-16 px-1 min-w-0 flex-1 ${
                         isActive 
-                          ? "text-indigo-600 bg-indigo-50" 
-                          : "text-gray-500 hover:text-gray-700 hover:bg-gray-50"
+                          ? "text-primary bg-primary-50" 
+                          : "text-muted-foreground hover:text-foreground hover:bg-accent"
                       }`}
                     >
-                      <Icon className={`w-5 h-5 ${isActive ? "text-indigo-600" : ""}`} />
+                      <Icon className={`w-5 h-5 ${isActive ? "text-primary" : ""}`} />
                       <span className={`text-xs ${isActive ? "font-medium" : ""} truncate max-w-full`}>
                         {tab.id === "chat" ? "AI" : tab.label}
                       </span>
                       {isActive && (
-                        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-1 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full"></div>
+                        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-6 h-1 bg-gradient-to-r from-primary to-accent-purple rounded-full"></div>
                       )}
                     </Button>
                   );

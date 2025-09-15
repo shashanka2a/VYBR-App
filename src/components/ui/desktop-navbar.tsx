@@ -25,14 +25,14 @@ export function DesktopNavbar({ activeTab, onTabChange, className }: DesktopNavb
 
   return (
     <nav className={cn(
-      "bg-white border-b border-gray-200 sticky top-0 z-50 shadow-sm",
+      "bg-card border-b border-border sticky top-0 z-50 shadow-sm",
       className
     )}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <div className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center">
+            <div className="w-8 h-8 bg-gradient-to-br from-primary to-accent-purple rounded-lg flex items-center justify-center">
               <span className="text-white font-bold text-sm">V</span>
             </div>
             <span className="text-xl font-bold gradient-text">VYBR</span>
@@ -59,8 +59,8 @@ export function DesktopNavbar({ activeTab, onTabChange, className }: DesktopNavb
                   className={cn(
                     "flex items-center space-x-2 px-4 py-2 rounded-lg transition-all duration-200",
                     isActive 
-                      ? "bg-indigo-50 text-indigo-600 font-medium" 
-                      : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                      ? "bg-primary-50 text-primary font-medium" 
+                      : "text-muted-foreground hover:text-foreground hover:bg-accent"
                   )}
                 >
                   <Icon className="w-4 h-4" />
@@ -72,7 +72,7 @@ export function DesktopNavbar({ activeTab, onTabChange, className }: DesktopNavb
 
           {/* CTA Button */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button variant="outline" size="sm" className="text-gray-600">
+            <Button variant="outline" size="sm" className="text-muted-foreground">
               Sign In
             </Button>
             <Button 
@@ -103,7 +103,7 @@ export function DesktopNavbar({ activeTab, onTabChange, className }: DesktopNavb
 
         {/* Mobile Menu */}
         {isMobileMenuOpen && (
-          <div className="md:hidden border-t border-gray-200 py-4 space-y-2">
+          <div className="md:hidden border-t border-border py-4 space-y-2">
             {navItems.map((item) => {
               const Icon = item.icon
               const isActive = activeTab === item.id || 
@@ -123,8 +123,8 @@ export function DesktopNavbar({ activeTab, onTabChange, className }: DesktopNavb
                   className={cn(
                     "w-full justify-start space-x-3 px-4 py-3 rounded-lg",
                     isActive 
-                      ? "bg-indigo-50 text-indigo-600 font-medium" 
-                      : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                      ? "bg-primary-50 text-primary font-medium" 
+                      : "text-muted-foreground hover:text-foreground hover:bg-accent"
                   )}
                 >
                   <Icon className="w-5 h-5" />
@@ -133,7 +133,7 @@ export function DesktopNavbar({ activeTab, onTabChange, className }: DesktopNavb
               )
             })}
             
-            <div className="pt-4 border-t border-gray-200 space-y-2">
+            <div className="pt-4 border-t border-border space-y-2">
               <Button variant="outline" className="w-full">
                 Sign In
               </Button>
