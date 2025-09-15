@@ -10,7 +10,10 @@ const customJestConfig = {
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   moduleNameMapper: {
     // Handle module aliases
-    '^@/(.*)$': '<rootDir>/$1',
+    '^@/(.*)$': '<rootDir>/src/$1',
+    '^@/app/(.*)$': '<rootDir>/app/$1',
+    '^@/lib/(.*)$': '<rootDir>/src/lib/$1',
+    '^@/components/(.*)$': '<rootDir>/src/components/$1',
   },
   testEnvironment: 'jest-environment-jsdom',
   collectCoverageFrom: [
