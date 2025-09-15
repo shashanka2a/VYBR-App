@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Heart, X, MessageCircle, Star, MapPin, GraduationCap, Music, Coffee, Gamepad2, Book } from "lucide-react";
+import { Heart, X, MessageCircle, Star, MapPin, GraduationCap, Music, Coffee, Gamepad2, Book, Camera } from "lucide-react";
 import { Button } from "./ui/button";
 import { Card } from "./ui/card";
 import { Badge } from "./ui/badge";
@@ -29,22 +29,22 @@ interface RoommateProfile {
 const profiles: RoommateProfile[] = [
   {
     id: 1,
-    name: "Emma Rodriguez",
-    age: 20,
+    name: "Shashank Jagannatham",
+    age: 21,
     major: "Computer Science",
-    year: "Junior",
-    image: "https://images.unsplash.com/photo-1744320911030-1ab998d994d7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkaXZlcnNlJTIwY29sbGVnZSUyMHN0dWRlbnRzJTIwZ3JvdXB8ZW58MXx8fHwxNzU3MjM5ODUyfDA&ixlib=rb-4.1.0&q=80&w=1080",
-    bio: "CS major who loves coding late nights and weekend hiking. Looking for a clean, respectful roommate who values both study time and fun!",
-    location: "2.3 miles from campus",
-    compatibility: 92,
-    interests: ["Coding", "Hiking", "Gaming", "Coffee"],
+    year: "Senior",
+    image: "/shashank-profile.jpg",
+    bio: "CS senior with a passion for full-stack development and outdoor adventures. Looking for a roommate who appreciates both focused coding sessions and weekend explorations!",
+    location: "1.5 miles from campus",
+    compatibility: 95,
+    interests: ["Web Development", "Hiking", "Photography", "Coffee"],
     lifestyle: {
-      cleanliness: 85,
-      socialLevel: 70,
-      studyHabits: 90,
+      cleanliness: 90,
+      socialLevel: 75,
+      studyHabits: 88,
       sleepSchedule: "Night Owl"
     },
-    preferences: ["Non-smoker", "Pet-friendly", "Quiet study time", "Shared cooking"]
+    preferences: ["Non-smoker", "Tech-savvy", "Outdoor activities", "Clean workspace"]
   },
   {
     id: 2,
@@ -91,6 +91,20 @@ export function RoomiesTab() {
 
   return (
     <div className="p-4 md:p-6 lg:p-8 pb-20 md:pb-8 space-y-6 md:space-y-8">
+      {/* Coming Soon Banner */}
+      <div className="bg-gradient-to-r from-purple-100 to-indigo-100 border-2 border-purple-300 rounded-xl p-4 md:p-6 text-center space-y-3 shadow-sm">
+        <div className="flex items-center justify-center space-x-2 text-purple-700">
+          <Star className="w-5 h-5 fill-purple-200" />
+          <span className="font-bold text-lg">Coming Soon!</span>
+          <Star className="w-5 h-5 fill-purple-200" />
+        </div>
+        <p className="text-purple-800 font-medium">
+          Roommate matching is currently in development. The interface below is a preview mockup.
+        </p>
+        <div className="text-sm text-purple-600">
+          🚀 Real roommate matching powered by AI will be available soon!
+        </div>
+      </div>
       {/* Header */}
       <div className="text-center space-y-2 md:space-y-3 max-w-4xl mx-auto">
         <h1 className="heading-1 bg-gradient-to-r from-purple-600 to-emerald-600 bg-clip-text text-transparent">
@@ -104,7 +118,7 @@ export function RoomiesTab() {
         {/* Compatibility Notice */}
         <div className="bg-gradient-to-r from-purple-50 to-emerald-50 border border-purple-200 rounded-lg p-3 mt-4">
           <p className="text-sm text-purple-800">
-            ✨ Showing matches based on your My Vibe AI assessment
+            ✨ Preview: Future matches will be based on your My Vibe AI assessment
           </p>
         </div>
       </div>
@@ -153,7 +167,8 @@ export function RoomiesTab() {
               <div className="flex flex-wrap gap-2">
                 {currentProfile.interests.map((interest) => (
                   <Badge key={interest} variant="secondary" className="bg-purple-100 text-purple-700">
-                    {interest === "Coding" && <Gamepad2 className="w-3 h-3 mr-1" />}
+                    {interest === "Web Development" && <Gamepad2 className="w-3 h-3 mr-1" />}
+                    {interest === "Photography" && <Camera className="w-3 h-3 mr-1" />}
                     {interest === "Music Production" && <Music className="w-3 h-3 mr-1" />}
                     {interest === "Coffee" && <Coffee className="w-3 h-3 mr-1" />}
                     {interest === "Gaming" && <Gamepad2 className="w-3 h-3 mr-1" />}
