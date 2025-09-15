@@ -6,12 +6,23 @@
 import React from 'react'
 import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { RegisterForm } from '@/components/auth/RegisterForm'
-import { LoginForm } from '@/components/auth/LoginForm'
-import { VerifyOTPForm } from '@/components/auth/VerifyOTPForm'
+import { RegisterForm } from '@/src/components/auth/RegisterForm'
+import { LoginForm } from '@/src/components/auth/LoginForm'
+import { VerifyOTPForm } from '@/src/components/auth/VerifyOTPForm'
 
 // Mock fetch
 global.fetch = jest.fn()
+
+// Mock Next.js navigation
+jest.mock('next/navigation', () => ({
+  useRouter: jest.fn(() => ({
+    push: jest.fn(),
+    replace: jest.fn(),
+  })),
+  useSearchParams: jest.fn(() => ({
+    get: jest.fn(),
+  })),
+}))
 
 // Mock useAuth hook
 const mockSetUser = jest.fn()
@@ -21,7 +32,7 @@ const mockUseAuth = {
   logout: jest.fn(),
 }
 
-jest.mock('@/lib/hooks/useAuth', () => ({
+jest.mock('@/src/lib/hooks/useAuth', () => ({
   useAuth: () => mockUseAuth,
 }))
 
