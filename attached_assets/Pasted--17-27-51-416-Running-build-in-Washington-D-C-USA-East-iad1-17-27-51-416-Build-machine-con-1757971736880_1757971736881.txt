@@ -1,0 +1,59 @@
+[17:27:51.416] Running build in Washington, D.C., USA (East) – iad1
+[17:27:51.416] Build machine configuration: 2 cores, 8 GB
+[17:27:51.456] Cloning github.com/shashanka2a/VYBR-App (Branch: main, Commit: 26bcdef)
+[17:27:53.043] Cloning completed: 1.586s
+[17:27:53.154] Restored build cache from previous deployment (CebYVRpjsgatMVE7zmhMtogaWomZ)
+[17:27:53.831] Running "vercel build"
+[17:27:54.241] Vercel CLI 47.1.1
+[17:27:54.581] Installing dependencies...
+[17:27:58.876] npm warn deprecated glob@7.2.3: Glob versions prior to v9 are no longer supported
+[17:28:07.734] 
+[17:28:07.735] added 413 packages, and changed 1 package in 13s
+[17:28:07.735] 
+[17:28:07.736] 196 packages are looking for funding
+[17:28:07.736]   run `npm fund` for details
+[17:28:07.773] Detected Next.js version: 14.2.32
+[17:28:07.779] Running "npm run build"
+[17:28:07.892] 
+[17:28:07.892] > mobile-pwa-nextjs@0.1.0 build
+[17:28:07.892] > next build
+[17:28:07.893] 
+[17:28:08.572]   ▲ Next.js 14.2.32
+[17:28:08.573] 
+[17:28:08.697]    Creating an optimized production build ...
+[17:28:30.679]  ✓ Compiled successfully
+[17:28:30.681]    Linting and checking validity of types ...
+[17:28:36.390] 
+[17:28:36.390] ./app/dashboard/page.tsx
+[17:28:36.390] 17:6  Warning: React Hook useEffect has a missing dependency: 'checkOnboardingStatus'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+[17:28:36.391] 
+[17:28:36.391] ./app/onboarding/page.tsx
+[17:28:36.391] 17:6  Warning: React Hook useEffect has a missing dependency: 'checkOnboardingStatus'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+[17:28:36.391] 
+[17:28:36.391] ./src/components/HomeTab.tsx
+[17:28:36.391] 36:6  Warning: React Hook useEffect has a missing dependency: 'fetchHousingData'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+[17:28:36.391] 
+[17:28:36.391] ./src/components/onboarding/OnboardingChat.tsx
+[17:28:36.391] 40:6  Warning: React Hook useEffect has a missing dependency: 'loadChatHistory'. Either include it or remove the dependency array.  react-hooks/exhaustive-deps
+[17:28:36.391] 
+[17:28:36.392] info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/basic-features/eslint#disabling-rules
+[17:28:42.599]    Collecting page data ...
+[17:28:43.152] eW [Error]: Missing credentials. Please pass an `apiKey`, or set the `OPENAI_API_KEY` environment variable.
+[17:28:43.154]     at new ny (/vercel/path0/.next/server/app/api/onboarding/chat/route.js:8:43894)
+[17:28:43.154]     at 752 (/vercel/path0/.next/server/app/api/onboarding/chat/route.js:8:57702)
+[17:28:43.155]     at t (/vercel/path0/.next/server/webpack-runtime.js:1:127)
+[17:28:43.155]     at s (/vercel/path0/.next/server/app/api/onboarding/chat/route.js:40:3840)
+[17:28:43.155]     at /vercel/path0/.next/server/app/api/onboarding/chat/route.js:40:3875
+[17:28:43.155]     at t.X (/vercel/path0/.next/server/webpack-runtime.js:1:2120)
+[17:28:43.156]     at /vercel/path0/.next/server/app/api/onboarding/chat/route.js:40:3853
+[17:28:43.156]     at Object.<anonymous> (/vercel/path0/.next/server/app/api/onboarding/chat/route.js:40:3901)
+[17:28:43.157]     at Module._compile (node:internal/modules/cjs/loader:1688:14)
+[17:28:43.157]     at Object..js (node:internal/modules/cjs/loader:1820:10)
+[17:28:43.161] 
+[17:28:43.162] > Build error occurred
+[17:28:43.163] Error: Failed to collect page data for /api/onboarding/chat
+[17:28:43.163]     at /vercel/path0/node_modules/next/dist/build/utils.js:1269:15
+[17:28:43.163]     at process.processTicksAndRejections (node:internal/process/task_queues:105:5) {
+[17:28:43.163]   type: 'Error'
+[17:28:43.163] }
+[17:28:43.187] Error: Command "npm run build" exited with 1
