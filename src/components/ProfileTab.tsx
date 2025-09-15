@@ -4,6 +4,7 @@ import { Button } from "./ui/button";
 import { Card } from "./ui/card";
 import { Progress } from "./ui/progress";
 import { Input } from "./ui/input";
+import { AuthGate } from "./auth/AuthGate";
 
 interface UserProfile {
   name: string;
@@ -49,7 +50,7 @@ const mockProfile: UserProfile = {
   }
 };
 
-export function ProfileTab() {
+function ProfileTabContent() {
   const [profile] = useState<UserProfile>(mockProfile);
   const [isEditing, setIsEditing] = useState(false);
 
@@ -261,5 +262,16 @@ export function ProfileTab() {
         </Button>
       </div>
     </div>
+  );
+}
+
+export function ProfileTab() {
+  return (
+    <AuthGate 
+      feature="Your Profile" 
+      description="Manage your profile information and preferences to find the perfect roommate matches."
+    >
+      <ProfileTabContent />
+    </AuthGate>
   );
 }

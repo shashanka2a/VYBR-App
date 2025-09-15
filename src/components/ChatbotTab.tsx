@@ -5,6 +5,7 @@ import { Progress } from "./ui/progress";
 import { Card } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
+import { AuthGate } from "./auth/AuthGate";
 
 interface UserProfile {
   major: string;
@@ -96,7 +97,7 @@ const assessmentQuestions: AssessmentQuestion[] = [
 
 type FlowState = 'intro' | 'assessment' | 'summary';
 
-export function ChatbotTab() {
+function ChatbotTabContent() {
   const [flowState, setFlowState] = useState<FlowState>('intro');
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [userProfile, setUserProfile] = useState<Partial<UserProfile>>({});
@@ -313,4 +314,15 @@ export function ChatbotTab() {
   }
 
   return null;
+}
+
+export function ChatbotTab() {
+  return (
+    <AuthGate 
+      feature="My Vibe AI" 
+      description="Get personalized roommate matching and housing recommendations based on your preferences and lifestyle."
+    >
+      <ChatbotTabContent />
+    </AuthGate>
+  );
 }
