@@ -24,12 +24,7 @@ const nextConfig = {
   experimental: {
     esmExternals: true,
   },
-  // Production build settings (for static export deployment)
-  ...(process.env.NODE_ENV === 'production' ? {
-    output: 'export',
-    trailingSlash: true,
-    skipTrailingSlashRedirect: true,
-  } : {}),
+  // Remove static export for production - we need dynamic API routes for authentication
 }
 
 module.exports = nextConfig

@@ -1,7 +1,8 @@
-import OpenAI from "openai";
+// TODO: Re-enable OpenAI integration later
+// import OpenAI from "openai";
 
 // the newest OpenAI model is "gpt-5" which was released August 7, 2025. do not change this unless explicitly requested by the user
-const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+// const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
 export interface OnboardingMessage {
   role: 'assistant' | 'user';
@@ -49,6 +50,8 @@ Start by introducing yourself and asking about their nationality/country of orig
     messages: OnboardingMessage[],
     extractedPreferences?: Partial<UserPreferences>
   ): Promise<{ message: string; isComplete: boolean; preferences: Partial<UserPreferences> }> {
+    // TODO: Re-enable OpenAI integration later
+    /*
     try {
       const conversationHistory = messages.map(msg => ({
         role: msg.role as 'assistant' | 'user',
@@ -77,9 +80,47 @@ Start by introducing yourself and asking about their nationality/country of orig
       console.error('OpenAI API error:', error);
       throw new Error('Failed to generate AI response');
     }
+    */
+
+    // Mock response for now
+    const messageCount = messages.length;
+    const lastMessage = messages[messages.length - 1];
+    
+    // Simple mock conversation flow
+    if (messageCount <= 2) {
+      return {
+        message: "Thanks for sharing! What&apos;s your age and what year are you in school? 📚",
+        isComplete: false,
+        preferences: { nationality: "International" }
+      };
+    } else if (messageCount <= 4) {
+      return {
+        message: "Great! What&apos;s your budget range for housing per month? 💰",
+        isComplete: false,
+        preferences: { ...extractedPreferences, age: 20 }
+      };
+    } else if (messageCount <= 6) {
+      return {
+        message: "Perfect! Are you looking for on-campus or off-campus housing? 🏠",
+        isComplete: false,
+        preferences: { ...extractedPreferences, budgetMin: 800, budgetMax: 1200 }
+      };
+    } else {
+      return {
+        message: "Thanks for sharing your preferences! Your profile is now complete. Let&apos;s get you matched with perfect housing! 🎉",
+        isComplete: true,
+        preferences: { 
+          ...extractedPreferences, 
+          housingType: ["off_campus"], 
+          internationalFriendly: true 
+        }
+      };
+    }
   }
 
   static async extractPreferences(conversationHistory: OnboardingMessage[]): Promise<UserPreferences> {
+    // TODO: Re-enable OpenAI integration later
+    /*
     try {
       const conversation = conversationHistory
         .map(msg => `${msg.role.toUpperCase()}: ${msg.content}`)
@@ -117,5 +158,20 @@ Start by introducing yourself and asking about their nationality/country of orig
       console.error('Failed to extract preferences:', error);
       return {};
     }
+    */
+
+    // Mock preferences extraction for now
+    return {
+      nationality: "International",
+      age: 20,
+      lifestyle: ["studious", "social"],
+      budgetMin: 800,
+      budgetMax: 1200,
+      housingType: ["off_campus"],
+      amenities: ["gym", "pool", "parking"],
+      petFriendly: false,
+      smokingAllowed: false,
+      internationalFriendly: true
+    };
   }
 }

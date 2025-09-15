@@ -3,6 +3,8 @@ import { verifyJWT } from '@/lib/auth/jwt'
 import { prisma } from '@/lib/prisma'
 import { OnboardingAI, type OnboardingMessage } from '@/lib/openai'
 
+export const dynamic = 'force-dynamic'
+
 export async function POST(request: NextRequest) {
   try {
     // Verify authentication
