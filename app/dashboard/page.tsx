@@ -72,7 +72,7 @@ export default function DashboardPage() {
 
           <Card>
             <CardHeader>
-              <CardTitle>Welcome to VYBR!</CardTitle>
+              <CardTitle>Welcome to Tribzy!</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-gray-600">

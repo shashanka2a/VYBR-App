@@ -64,7 +64,7 @@ export function OnboardingChat({ onComplete }: OnboardingChatProps) {
   const startConversation = () => {
     const welcomeMessage: ChatMessage = {
       role: 'assistant',
-      content: "Hi there! 👋 I&apos;m VYBR&apos;s AI assistant, and I&apos;m excited to help you find the perfect housing match! Let&apos;s start by learning about your background. What country are you from? 🌍",
+      content: "Hi there! 👋 I&apos;m Tribzy&apos;s AI assistant, and I&apos;m excited to help you find the perfect housing match! Let&apos;s start by learning about your background. What country are you from? 🌍",
       timestamp: new Date()
     }
     setMessages([welcomeMessage])
@@ -136,7 +136,7 @@ export function OnboardingChat({ onComplete }: OnboardingChatProps) {
   return (
     <div className="max-w-2xl mx-auto h-full flex flex-col">
       <div className="mb-4 text-center">
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Welcome to VYBR! 🎉</h2>
+        <h2 className="text-2xl font-bold text-gray-900 mb-2">Welcome to Tribzy! 🎉</h2>
         <p className="text-gray-600">Let&apos;s personalize your housing experience with a quick chat</p>
       </div>
 

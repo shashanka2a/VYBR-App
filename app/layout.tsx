@@ -5,7 +5,7 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'VYBR - Student Community Platform',
+  title: 'Tribzy - Student Community Platform',
   description: 'Connect with fellow students, find housing, and join events',
 }
 

@@ -113,7 +113,7 @@ export function ChatWelcome() {
           AI
         </div>
       }
-      title="Welcome to VYBR AI!"
+      title="Welcome to Tribzy AI!"
       description="I'm here to help you find the perfect housing, connect with roommates, and discover campus events. What can I help you with today?"
       className="py-12"
     />

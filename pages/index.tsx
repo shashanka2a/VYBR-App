@@ -25,7 +25,7 @@ export default function HomePage() {
   return (
     <>
       <Head>
-        <title>VYBR - Find Your Community</title>
+        <title>Tribzy - Find Your Community</title>
         <meta name="description" content="Find your perfect community and connect with compatible roommates in Gainesville." />
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
       </Head>

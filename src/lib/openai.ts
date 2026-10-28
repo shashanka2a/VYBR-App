@@ -24,7 +24,7 @@ export interface UserPreferences {
 }
 
 export class OnboardingAI {
-  private static readonly SYSTEM_PROMPT = `You are VYBR's friendly AI assistant helping new students complete their housing preferences profile. 
+  private static readonly SYSTEM_PROMPT = `You are Tribzy's friendly AI assistant helping new students complete their housing preferences profile. 
 
 Your goal is to collect the following information through a natural, conversational flow:
 1. Nationality/Country of origin
